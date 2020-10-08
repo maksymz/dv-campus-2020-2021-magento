@@ -1,5 +1,5 @@
 # SSL certificates for development
-# $ mkcert maksym-zaporozhets.local www.maksym-zaporozhets.local
+# $ mkcert maksym-zaporozhets.local www.maksym-zaporozhets.local maksym-zaporozhets-additional.local www.maksym-zaporozhets-additional.local
 #
 # Start composition:
 # $ docker-compose up -d
@@ -27,33 +27,33 @@ services:
     labels:
       - traefik.enable=true
       # HTTP
-      - traefik.http.routers.maksym-zaporozhets-local-http.rule=Host(`maksym-zaporozhets.local`,`www.maksym-zaporozhets.local`)
+      - traefik.http.routers.maksym-zaporozhets-local-http.rule=Host(`maksym-zaporozhets.local`,`www.maksym-zaporozhets.local`,`maksym-zaporozhets-additional.local`,`www.maksym-zaporozhets-additional.local`)
       - traefik.http.routers.maksym-zaporozhets-local-http.entrypoints=http
       - traefik.http.routers.maksym-zaporozhets-local-http.service=maksym-zaporozhets-local-http
       - traefik.http.services.maksym-zaporozhets-local-http.loadbalancer.server.port=80
       - traefik.http.services.maksym-zaporozhets-local-http.loadbalancer.server.scheme=http
       # HTTPS
-      - traefik.http.routers.maksym-zaporozhets-local-https.rule=Host(`maksym-zaporozhets.local`,`www.maksym-zaporozhets.local`)
+      - traefik.http.routers.maksym-zaporozhets-local-https.rule=Host(`maksym-zaporozhets.local`,`www.maksym-zaporozhets.local`,`maksym-zaporozhets-additional.local`,`www.maksym-zaporozhets-additional.local`)
       - traefik.http.routers.maksym-zaporozhets-local-https.entrypoints=https
       - traefik.http.routers.maksym-zaporozhets-local-https.tls=true
       - traefik.http.routers.maksym-zaporozhets-local-https.service=maksym-zaporozhets-local-https
       - traefik.http.services.maksym-zaporozhets-local-https.loadbalancer.server.port=443
       - traefik.http.services.maksym-zaporozhets-local-https.loadbalancer.server.scheme=https
       # Develop with extension that allows setting livereload host and port - https://github.com/lokcito/livereload-extensions
-      - traefik.http.routers.maksym-zaporozhets-local-livereload-https.rule=Host(`maksym-zaporozhets.local`,`www.maksym-zaporozhets.local`)
+      - traefik.http.routers.maksym-zaporozhets-local-livereload-https.rule=Host(`maksym-zaporozhets.local`,`www.maksym-zaporozhets.local`,`maksym-zaporozhets-additional.local`,`www.maksym-zaporozhets-additional.local`)
       - traefik.http.routers.maksym-zaporozhets-local-livereload-https.entrypoints=livereload-https
       - traefik.http.routers.maksym-zaporozhets-local-livereload-https.tls=true
       - traefik.http.routers.maksym-zaporozhets-local-livereload-https.service=maksym-zaporozhets-local-livereload-https
       - traefik.http.services.maksym-zaporozhets-local-livereload-https.loadbalancer.server.port=35729
       - traefik.http.services.maksym-zaporozhets-local-livereload-https.loadbalancer.server.scheme=http
-      - traefik.http.routers.maksym-zaporozhets-local-livereload-http.rule=Host(`maksym-zaporozhets.local`,`www.maksym-zaporozhets.local`)
+      - traefik.http.routers.maksym-zaporozhets-local-livereload-http.rule=Host(`maksym-zaporozhets.local`,`www.maksym-zaporozhets.local`,`maksym-zaporozhets-additional.local`,`www.maksym-zaporozhets-additional.local`)
       - traefik.http.routers.maksym-zaporozhets-local-livereload-http.entrypoints=livereload-http
       - traefik.http.routers.maksym-zaporozhets-local-livereload-http.service=maksym-zaporozhets-local-livereload-http
       - traefik.http.services.maksym-zaporozhets-local-livereload-http.loadbalancer.server.port=35729
       - traefik.http.services.maksym-zaporozhets-local-livereload-http.loadbalancer.server.scheme=http
     # Must add extra_hosts to be written to /etc/hosts - otherwise containerized application can not curl itself
     extra_hosts:
-      - "maksym-zaporozhets.local www.maksym-zaporozhets.local:127.0.0.1"
+      - "maksym-zaporozhets.local www.maksym-zaporozhets.local maksym-zaporozhets-additional.local www.maksym-zaporozhets-additional.local:127.0.0.1"
       # Required for xDebug on Linux hosts till docker.host.internal is not available by default - https://github.com/docker/libnetwork/pull/2348/files
       - "host.docker.internal:172.17.0.1"
     links:
