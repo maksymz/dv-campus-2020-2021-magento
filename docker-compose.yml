@@ -1,5 +1,5 @@
 # SSL certificates for development
-# $ mkcert maksym-zaporozhets.local www.maksym-zaporozhets.local maksym-zaporozhets-additional.local www.maksym-zaporozhets-additional.local
+# $ mkcert maksym-zaporozhets.local www.maksym-zaporozhets.local maksym-zaporozhets-additional.local www.maksym-zaporozhets-additional.local maksym-zaporozhets-dev.local www.maksym-zaporozhets-dev.local maksym-zaporozhets-additional-dev.local www.maksym-zaporozhets-additional-dev.local
 #
 # Start composition:
 # $ docker-compose up -d
