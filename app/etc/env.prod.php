@@ -91,8 +91,8 @@ return [
                     'base_link_url' => '{{secure_base_url}}',
                     'base_static_url' => 'https://maksym-zaporozhets.local/static/',
                     'base_media_url' => 'https://maksym-zaporozhets.local/media/'
-                ],
-            ],
+                ]
+            ]
         ],
         'websites' => [
             'additional_website' => [
