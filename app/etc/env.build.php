@@ -14,9 +14,9 @@ return [
         'connection' => [
             'default' => [
                 'host' => 'mysql',
-                'dbname' => 'maksym_zaporozhets_local',
-                'username' => 'maksym_zaporozhets_local',
-                'password' => 'maksym_zaporozhets_local',
+                'dbname' => 'maksym_zaporozhets_build_local',
+                'username' => 'maksym_zaporozhets_build_local',
+                'password' => '^vy89[545o5[%b%vsdf',
                 'model' => 'mysql4',
                 'engine' => 'innodb',
                 'initStatements' => 'SET NAMES utf8;',
@@ -72,7 +72,7 @@ return [
         'vertex' => 1
     ],
     'downloadable_domains' => [
-        'maksym-zaporozhets.local'
+        'maksym-zaporozhets-dev.local'
     ],
     'install' => [
         'date' => 'Thu, 01 Oct 2020 16:39:34 +0000'
@@ -81,33 +81,33 @@ return [
         'default' => [
             'web' => [
                 'unsecure' => [
-                    'base_url' => 'https://maksym-zaporozhets.local/',
+                    'base_url' => 'https://maksym-zaporozhets-dev.local/',
                     'base_link_url' => '{{unsecure_base_url}}',
-                    'base_static_url' => 'https://maksym-zaporozhets.local/static/',
-                    'base_media_url' => 'https://maksym-zaporozhets.local/media/'
+                    'base_static_url' => 'https://maksym-zaporozhets-dev.local/static/',
+                    'base_media_url' => 'https://maksym-zaporozhets-dev.local/media/'
                 ],
                 'secure' => [
-                    'base_url' => 'https://maksym-zaporozhets.local/',
+                    'base_url' => 'https://maksym-zaporozhets-dev.local/',
                     'base_link_url' => '{{secure_base_url}}',
-                    'base_static_url' => 'https://maksym-zaporozhets.local/static/',
-                    'base_media_url' => 'https://maksym-zaporozhets.local/media/'
-                ]
-            ]
+                    'base_static_url' => 'https://maksym-zaporozhets-dev.local/static/',
+                    'base_media_url' => 'https://maksym-zaporozhets-dev.local/media/'
+                ],
+            ],
         ],
         'websites' => [
             'additional_website' => [
                 'web' => [
                     'unsecure' => [
-                        'base_url' => 'https://maksym-zaporozhets-additional.local/',
-                        'base_link_url' => 'https://maksym-zaporozhets-additional.local/',
-                        'base_static_url' => 'https://maksym-zaporozhets-additional.local/static/',
-                        'base_media_url' => 'https://maksym-zaporozhets-additional.local/media/'
+                        'base_url' => 'https://maksym-zaporozhets-additional-dev.local/',
+                        'base_link_url' => 'https://maksym-zaporozhets-additional-dev.local/',
+                        'base_static_url' => 'https://maksym-zaporozhets-additional-dev.local/static/',
+                        'base_media_url' => 'https://maksym-zaporozhets-additional-dev.local/media/'
                     ],
                     'secure' => [
-                        'base_url' => 'https://maksym-zaporozhets-additional.local/',
-                        'base_link_url' => 'https://maksym-zaporozhets-additional.local/',
-                        'base_static_url' => 'https://maksym-zaporozhets-additional.local/static/',
-                        'base_media_url' => 'https://maksym-zaporozhets-additional.local/media/'
+                        'base_url' => 'https://maksym-zaporozhets-additional-dev.local/',
+                        'base_link_url' => 'https://maksym-zaporozhets-additional-dev.local/',
+                        'base_static_url' => 'https://maksym-zaporozhets-additional-dev.local/static/',
+                        'base_media_url' => 'https://maksym-zaporozhets-additional-dev.local/media/'
                     ]
                 ]
             ]
