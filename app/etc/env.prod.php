@@ -33,7 +33,7 @@ return [
         ]
     ],
     'x-frame-options' => 'SAMEORIGIN',
-    'MAGE_MODE' => 'developer',
+    'MAGE_MODE' => 'production',
     'session' => [
         'save' => 'files'
     ],
@@ -76,5 +76,41 @@ return [
     ],
     'install' => [
         'date' => 'Thu, 01 Oct 2020 16:39:34 +0000'
+    ],
+    'system' => [
+        'default' => [
+            'web' => [
+                'unsecure' => [
+                    'base_url' => 'https://maksym-zaporozhets.local/',
+                    'base_link_url' => '{{unsecure_base_url}}',
+                    'base_static_url' => 'https://maksym-zaporozhets.local/static/',
+                    'base_media_url' => 'https://maksym-zaporozhets.local/media/'
+                ],
+                'secure' => [
+                    'base_url' => 'https://maksym-zaporozhets.local/',
+                    'base_link_url' => '{{secure_base_url}}',
+                    'base_static_url' => 'https://maksym-zaporozhets.local/static/',
+                    'base_media_url' => 'https://maksym-zaporozhets.local/media/'
+                ]
+            ]
+        ],
+        'websites' => [
+            'additional_website' => [
+                'web' => [
+                    'unsecure' => [
+                        'base_url' => 'https://maksym-zaporozhets-additional.local/',
+                        'base_link_url' => 'https://maksym-zaporozhets-additional.local/',
+                        'base_static_url' => 'https://maksym-zaporozhets-additional.local/static/',
+                        'base_media_url' => 'https://maksym-zaporozhets-additional.local/media/'
+                    ],
+                    'secure' => [
+                        'base_url' => 'https://maksym-zaporozhets-additional.local/',
+                        'base_link_url' => 'https://maksym-zaporozhets-additional.local/',
+                        'base_static_url' => 'https://maksym-zaporozhets-additional.local/static/',
+                        'base_media_url' => 'https://maksym-zaporozhets-additional.local/media/'
+                    ]
+                ]
+            ]
+        ]
     ]
 ];
