@@ -91,10 +91,17 @@ return [
                     'base_link_url' => '{{secure_base_url}}',
                     'base_static_url' => 'https://maksym-zaporozhets-dev.local/static/',
                     'base_media_url' => 'https://maksym-zaporozhets-dev.local/media/'
-                ],
-            ],
+                ]
+            ]
         ],
         'websites' => [
+            'base' => [
+                'design' => [
+                    'theme' => [
+                        'theme_id' => 4
+                    ]
+                ]
+            ],
             'additional_website' => [
                 'web' => [
                     'unsecure' => [
