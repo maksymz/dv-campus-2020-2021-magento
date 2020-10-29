@@ -1,0 +1,13 @@
+@import 'extend/_header.less';
+
+& when (@media-target = 'desktop'), (@media-target = 'all') {
+
+    @media all and (min-width: @screen__xxl),
+    print {
+        .media-width('min', @screen__xxl);
+    }
+}
+
+@screen__xxl: 1600px;
+
+@button__font-weight: @font-weight__bold;
