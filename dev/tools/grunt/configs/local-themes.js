@@ -1,5 +1,5 @@
 /**
- * grunt exec:dvcampus_luma_en_us && grunt less:dvcampus_luma_en_us
+ * grunt exec:dvcampus_luma_en_us && grunt less:dvcampus_luma_en_us && grunt watch
  */
 module.exports = {
     dvcampus_luma_en_us: {
