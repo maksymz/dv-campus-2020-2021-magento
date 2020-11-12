@@ -1,11 +1,12 @@
 <?php /** @var \DVCampus\Catalog\Block\DemoBlock $block */ ?>
-<p>This is a demo block</p>
-<?= $block->getChildHtml('product.info.block.demo.child') ?>
-<h3>Example of passing variables from layout to block:</h3>
+<?php /** @var \Magento\Framework\Escaper $escaper */ ?>
+<p><?= $escaper->escapeHtml(__('This is a demo block')) ?></p>
+<?= $block->getChildHtml('product.info.block.demo.child.alias') ?>
+<h3><?= $escaper->escapeHtml(__('Example of passing variables from layout to block:')) ?></h3>
 <ul>
-    <li>String variable value: <?= $block->getStringVariable() ?></li>
-    <li>Integer variable value: <?= $block->getIntVariable() ?></li>
+    <li><?= $escaper->escapeHtml(__('String variable value: %1', $block->getStringVariable())) ?></li>
+    <li><?= $escaper->escapeHtml(__('Integer variable value: %1', $block->getIntVariable())) ?></li>
     <?php foreach ($block->getArray() as $key => $value): ?>
-        <li><?= "Array key '$key' has value '$value'" ?></li>
+        <li><?= $escaper->escapeHtml(__('Array key "%1" has value "%2"', $key, $value)) ?></li>
     <?php endforeach; ?>
 </ul>

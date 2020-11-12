@@ -17,8 +17,14 @@
                 </arguments>
                 <block class="Magento\Framework\View\Element\Template"
                        name="product.info.block.demo.child"
+                       as="product.info.block.demo.child.alias"
                        template="DVCampus_Catalog::product/view/block_demo/child_block.phtml"
-                />
+                >
+                    <arguments>
+                        <argument name="product_name" xsi:type="helper" helper="DVCampus\Catalog\Helper\Data::getProductName"/>
+                        <argument name="view_model" xsi:type="object">DVCampus\Catalog\ViewModel\Product</argument>
+                    </arguments>
+                </block>
             </block>
         </referenceContainer>
     </body>

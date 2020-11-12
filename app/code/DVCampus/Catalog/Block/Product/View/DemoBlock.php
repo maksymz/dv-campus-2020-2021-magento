@@ -10,5 +10,4 @@ namespace DVCampus\Catalog\Block;
  */
 class DemoBlock extends \Magento\Framework\View\Element\Template
 {
-
 }
