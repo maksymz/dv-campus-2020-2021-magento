@@ -1,0 +1,11 @@
+<?php /** @var \DVCampus\Catalog\Block\DemoBlock $block */ ?>
+<p>This is a demo block</p>
+<?= $block->getChildHtml('product.info.block.demo.child') ?>
+<h3>Example of passing variables from layout to block:</h3>
+<ul>
+    <li>String variable value: <?= $block->getStringVariable() ?></li>
+    <li>Integer variable value: <?= $block->getIntVariable() ?></li>
+    <?php foreach ($block->getArray() as $key => $value): ?>
+        <li><?= "Array key '$key' has value '$value'" ?></li>
+    <?php endforeach; ?>
+</ul>
