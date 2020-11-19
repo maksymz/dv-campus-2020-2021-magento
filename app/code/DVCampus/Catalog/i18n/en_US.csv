@@ -1,0 +1,6 @@
+"This is a demo block","This is a demo block"
+"Example of passing variables from layout to block:","Example of passing variables from layout to block:"
+"String variable value: %1","String variable value: %1"
+"Integer variable value: %1","Integer variable value: %1"
+"Array key ""%1"" has value ""%2""","Array key ""%1"" has value ""%2"""
+"This is a child block","This is a child block"

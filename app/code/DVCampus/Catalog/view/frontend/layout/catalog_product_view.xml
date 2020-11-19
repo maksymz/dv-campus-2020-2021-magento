@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.main">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="product.info.block.demo"
+                   template="DVCampus_Catalog::product/view/block_demo.phtml"
+                   after="-"
+            >
+                <arguments>
+                    <argument name="string_variable" xsi:type="string">Demo string</argument>
+                    <argument name="int_variable" xsi:type="number">777</argument>
+                    <argument name="array" xsi:type="array">
+                        <item name="array_element_1" xsi:type="string">Array Element 1</item>
+                        <item name="array_element_2" xsi:type="string">Array Element 2</item>
+                    </argument>
+                </arguments>
+                <block class="Magento\Framework\View\Element\Template"
+                       name="product.info.block.demo.child"
+                       as="product.info.block.demo.child.alias"
+                       template="DVCampus_Catalog::product/view/block_demo/child_block.phtml"
+                >
+                    <arguments>
+                        <argument name="product_name" xsi:type="helper" helper="DVCampus\Catalog\Helper\Data::getProductName"/>
+                        <argument name="view_model" xsi:type="object">DVCampus\Catalog\ViewModel\Product</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

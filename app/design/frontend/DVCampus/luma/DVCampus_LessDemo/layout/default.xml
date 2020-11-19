@@ -8,6 +8,5 @@
                 </arguments>
             </block>
         </referenceContainer>
-        <move element="footer-container" destination="page.wrapper" before="-"/>
     </body>
 </page>

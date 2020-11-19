@@ -1,0 +1,12 @@
+<?php /** @var \Magento\Framework\View\TemplateEngine\PHP $this */ ?>
+<?php /** @var \Magento\Framework\View\Element\Template $block */ ?>
+<?php /** @var \Magento\Framework\Escaper $escaper */ ?>
+<?php /** @var \DVCampus\Catalog\Helper\Data $helper */
+    $helper = $this->helper(\DVCampus\Catalog\Helper\Data::class);
+    /** @var \DVCampus\Catalog\ViewModel\Product $viewModel */
+    $viewModel = $block->getData('view_model');
+?>
+<p><?= $escaper->escapeHtml(__('This is a child block')) ?></p>
+<p><?= $escaper->escapeHtml($block->getProductName()) ?></p>
+<p><?= (string) $helper->isModuleOutputEnabled() ?></p>
+<p><?= $viewModel->getViewModelData() ?></p>

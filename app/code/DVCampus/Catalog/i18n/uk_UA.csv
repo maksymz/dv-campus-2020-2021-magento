@@ -1,0 +1,6 @@
+"This is a demo block","То є демо блок"
+"Example of passing variables from layout to block:","Приклад передачі змінних з лейаута в блок"
+"String variable value: %1","%1 є значенням строкової змінної"
+"Integer variable value: %1","%1 є значенням цілочислової змінної"
+"Array key ""%1"" has value ""%2""","Ключ масиву '%1' має значення '%2'"
+"This is a child block","Це дочірній блок"
