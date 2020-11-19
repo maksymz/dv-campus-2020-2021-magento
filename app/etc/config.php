@@ -302,6 +302,7 @@ return [
         'Amazon_Login' => 1,
         'Amazon_Payment' => 1,
         'DVCampus_Catalog' => 1,
+        'DVCampus_ControllerDemo' => 1,
         'DVCampus_LayoutDebug' => 1,
         'DVCampus_LessDemo' => 1,
         'Dotdigitalgroup_Email' => 1,

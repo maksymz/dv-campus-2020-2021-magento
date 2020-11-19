@@ -1,0 +1,5 @@
+<?php /** @var \DVCampus\ControllerDemo\Block\Demo $block */ ?>
+<?php /** @var \Magento\Framework\Escaper $escaper */ ?>
+<p><?= $escaper->escapeHtml(__('String parameter: %1', $block->getStringParameter())) ?></p>
+<p><?= $escaper->escapeHtml(__('Integer parameter: %1', $block->getIntegerParameter())) ?></p>
+<p><?= $escaper->escapeHtml(__('Float parameter: %1', $block->getFloatParameter())) ?></p>
