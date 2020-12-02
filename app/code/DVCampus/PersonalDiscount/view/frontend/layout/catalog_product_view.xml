@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product.info.details">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="dv.campus.customer.price.form"
+                   template="DVCampus_PersonalDiscount::catalog/product/view/button.phtml"
+                   group="detailed_info"
+            >
+                <arguments>
+                    <argument name="sort_order" xsi:type="string">40</argument>
+                    <argument translate="true" name="title" xsi:type="string">Personal Discount</argument>
+                </arguments>
+            </block>
+            <!-- Magento\Catalog\Block\Product\View -->
+        </referenceBlock>
+    </body>
+</page>
