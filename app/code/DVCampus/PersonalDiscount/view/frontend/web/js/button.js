@@ -4,7 +4,7 @@ define([
 ], function ($) {
     'use strict';
 
-    $.widget('dvCampusPersonalDiscount.button', {
+    $.widget('dvCampus.personalDiscountButton', {
         /**
          * Constructor
          * @private
@@ -21,5 +21,5 @@ define([
         }
     });
 
-    return $.dvCampusPersonalDiscount.button;
+    return $.dvCampus.personalDiscountButton;
 });

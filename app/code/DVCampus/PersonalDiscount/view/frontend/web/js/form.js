@@ -1,22 +1,22 @@
 define([
     'jquery',
     'Magento_Ui/js/modal/alert',
-    'Magento_Ui/js/modal/modal'
+    'Magento_Ui/js/modal/modal',
+    'mage/translate'
 ], function ($, alert) {
     'use strict';
 
-    $.widget('dvCampusPersonalDiscount.form', {
+    $.widget('dvCampus.personalDiscountForm', {
         options: {
             action: '',
             productName: ''
-
         },
 
         /**
          * @private
          */
         _create: function () {
-            this.modal = $(this.element).modal({
+            $(this.element).modal({
                 buttons: []
             });
 
@@ -28,7 +28,7 @@ define([
          * Open modal dialog
          */
         openModal: function () {
-            this.modal.modal('openModal');
+            $(this.element).modal('openModal');
         },
 
         /**
@@ -75,7 +75,7 @@ define([
 
                 /** @inheritdoc */
                 success: function (response) {
-                    $('body').trigger('processStop');
+                    $(this.element).modal('closeModal');
                     alert({
                         title: $.mage.__('Success'),
                         content: response.message
@@ -84,16 +84,20 @@ define([
 
                 /** @inheritdoc */
                 error: function () {
-                    $('body').trigger('processStop');
                     alert({
                         title: $.mage.__('Error'),
                         /*eslint max-len: ["error", { "ignoreStrings": true }]*/
-                        content: $.mage.__('Your request can\'t be sent. Please, contact us if ypu see this message.')
+                        content: $.mage.__('Your request can\'t be sent. Please, contact us if you see this message.')
                     });
+                },
+
+                /** @inheritdoc */
+                complete: function () {
+                    $('body').trigger('processStop');
                 }
             });
         }
     });
 
-    return $.dvCampusPersonalDiscount.form;
+    return $.dvCampus.personalDiscountForm;
 });

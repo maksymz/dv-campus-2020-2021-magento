@@ -32,7 +32,7 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
     }
 
     /**
-     * https://maksym-zaporozhets-dev.local/dv-campus-2020-2021/demo_newStyle/jsonController
+     * https://maksym-zaporozhets-dev.local/dvcampus_personal_discount/index/request
      *
      * @return JsonResponse
      */
@@ -43,8 +43,9 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
         // @TODO: add form key validation and hideIt validation
         // @TODO: add Google Recaptcha to the form
         $response->setData([
-            'message' => __('You request for product %1 was accepted!', $this->request->getParam('produc'))
+            'message' => __('You request for product %1 was accepted!', $this->request->getParam('productName'))
         ]);
+
         return $response;
     }
 }

@@ -6,7 +6,7 @@
           id="dv-campus-personal-discount-form"
           method="post"
           data-mage-init='{"dvCampusPersonalDiscountForm":{
-              "action": "<?= $escaper->escapeUrl($block->getUrl('dvcampus_personal_discount/index/request')) ?>",
+              "action": "<?= $escaper->escapeJs($block->getUrl('dvcampus_personal_discount/index/request')) ?>",
               "productName": "<?= $escaper->escapeJs($block->getProduct()->getName()) ?>"
           }}'
           onsubmit="return false;"
