@@ -17,8 +17,7 @@ define([
          * Generate event to open the form
          */
         openRequestForm: function () {
-            console.log(this);
-            alert('Click event works fine');
+            $(document).trigger('dv_campus_personal_discount_form_open');
         }
     });
 
