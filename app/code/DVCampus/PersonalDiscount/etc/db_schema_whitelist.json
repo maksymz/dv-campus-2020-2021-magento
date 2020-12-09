@@ -1,0 +1,26 @@
+{
+    "dv_campus_personal_discount_request": {
+        "column": {
+            "discount_request_id": true,
+            "customer_id": true,
+            "name": true,
+            "email": true,
+            "message": true,
+            "website_id": true,
+            "status": true,
+            "created_at": true,
+            "updated_at": true,
+            "extra_demo_column": true
+        },
+        "index": {
+            "DV_CAMPUS_PERSONAL_DISCOUNT_REQUEST_CUSTOMER_ID": true,
+            "DV_CAMPUS_PERSONAL_DISCOUNT_REQUEST_WEBSITE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "DV_CAMPUS_PERSONAL_DISCOUNT_REQUEST_EMAIL_WEBSITE_ID": true,
+            "FK_5BBB19523714F56945A93C55FDC5C179": true,
+            "DV_CAMPUS_PERSONAL_DISCOUNT_REQUEST_WS_ID_M2_STORE_WS_WS_ID": true
+        }
+    }
+}

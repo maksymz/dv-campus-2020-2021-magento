@@ -11,10 +11,12 @@ class UpgradeSchema implements \Magento\Framework\Setup\UpgradeSchemaInterface
     /**
      * @param SchemaSetupInterface $setup
      * @param ModuleContextInterface $context
-     * @throws \Zend_Db_Exception
+     * @throws \Exception
      */
     public function upgrade(SchemaSetupInterface $setup, ModuleContextInterface $context): void
     {
+        throw new \Exception('Demo install scripts that will not work');
+
         $setup->startSetup();
 
         if (version_compare($context->getVersion(), '1.0.1', '<')) {

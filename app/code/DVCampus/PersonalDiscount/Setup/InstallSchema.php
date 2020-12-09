@@ -12,10 +12,12 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
     /**
      * @param SchemaSetupInterface $setup
      * @param ModuleContextInterface $context
-     * @throws \Zend_Db_Exception
+     * @throws \Exception
      */
     public function install(SchemaSetupInterface $setup, ModuleContextInterface $context): void
     {
+        throw new \Exception('Demo install scripts that will not work');
+
         $setup->startSetup();
 
         /**
