@@ -29,9 +29,6 @@
         <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Updated At"
         />
-        <column xsi:type="varchar" name="extra_demo_column" nullable="true"
-                comment="Extra demo column"
-        />
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="discount_request_id"/>
         </constraint>

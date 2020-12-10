@@ -9,8 +9,7 @@
             "website_id": true,
             "status": true,
             "created_at": true,
-            "updated_at": true,
-            "extra_demo_column": true
+            "updated_at": true
         },
         "index": {
             "DV_CAMPUS_PERSONAL_DISCOUNT_REQUEST_CUSTOMER_ID": true,
