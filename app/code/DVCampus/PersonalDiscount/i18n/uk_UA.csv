@@ -1,11 +1,16 @@
+"pending","очікує розгляду"
+approved,"затверджено"
+declined,"відхилено"
 "You request for product %1 was accepted!","Ваш запит на продукт %1 було прийнято!"
+"Your request can't be sent. Please, contact us if you see this message.","Ваш запит не може бути відправлено. Будь ласка, зв'яжіться з нами якщо ви бачите це повідомлення."
 "Request Personal Discount","Запросити персональну знижку"
 "Discount Request","Запит на знижку"
 "Name","Ім'я"
 "Email","Електронна адреса"
 Message,Повідломлення
 "Request a Discount","Відправити запит"
+"Request status:","Статус запиту:"
+"No discount request","Відсутній запит на знижку"
 Success,Відправлено
 Error,Помилка
-"Your request can't be sent. Please, contact us if you see this message.","Ваш запит не може бути відправлено. Будь ласка, зв'яжіться з нами якщо ви бачите це повідомлення."
 "Personal Discount","Персональна знижка"
