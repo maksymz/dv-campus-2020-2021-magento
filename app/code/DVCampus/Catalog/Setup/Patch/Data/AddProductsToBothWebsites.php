@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace DVCampus\Catalog\Setup\Patch\Data;
