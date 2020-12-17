@@ -7,8 +7,6 @@ namespace DVCampus\Cms\Setup\Patch\Data;
 use Magento\Widget\Model\ResourceModel\Widget\Instance\Collection as WidgetCollection;
 use Magento\Widget\Model\Widget\Instance as WidgetModel;
 use Magento\Widget\Model\WidgetFactory;
-use function Assert\thatNullOr;
-use function PHPUnit\Framework\throwException;
 
 class CopyWidgetsToTheNewStore implements \Magento\Framework\Setup\Patch\DataPatchInterface
 {
