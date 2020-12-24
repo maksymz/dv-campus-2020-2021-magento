@@ -35,6 +35,16 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
     private $discountRequestResource;
 
     /**
+     * @var \Magento\Customer\Model\Session $customerSession
+     */
+    private $customerSession;
+
+    /**
+     * @var \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
+     */
+    private $formKeyValidator;
+
+    /**
      * @var \Psr\Log\LoggerInterface $logger
      */
     private $logger;
@@ -46,6 +56,8 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
      * @param \DVCampus\PersonalDiscount\Model\DiscountRequestFactory $discountRequestFactory
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest $discountRequestResource
+     * @param \Magento\Customer\Model\Session $customerSession
+     * @param \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
@@ -54,6 +66,8 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
         \DVCampus\PersonalDiscount\Model\DiscountRequestFactory $discountRequestFactory,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest $discountRequestResource,
+        \Magento\Customer\Model\Session $customerSession,
+        \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Psr\Log\LoggerInterface $logger
     ) {
         $this->request = $request;
@@ -61,7 +75,9 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
         $this->discountRequestFactory = $discountRequestFactory;
         $this->storeManager = $storeManager;
         $this->discountRequestResource = $discountRequestResource;
+        $this->customerSession = $customerSession;
         $this->logger = $logger;
+        $this->formKeyValidator = $formKeyValidator;
     }
 
     /**
@@ -75,21 +91,32 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
         // @TODO: pass message via notifications, not alert
         // @TODO: add form key validation and hideIt validation
         // @TODO: add Google Recaptcha to the form
+        $formSaved = false;
 
         try {
+            if (!$this->formKeyValidator->validate($this->request)) {
+                throw new \InvalidArgumentException('Form key is not valid');
+            }
+
             /** @var DiscountRequest $discountRequest */
             $discountRequest = $this->discountRequestFactory->create();
             $discountRequest->setName($this->request->getParam('name'))
                 ->setEmail($this->request->getParam('email'))
-                ->setMessage($this->request->getParam('email'))
-                ->setWebsiteId($this->storeManager->getStore()->getWebsiteId())
-                ->setStatus($this->request->getParam('email'));
+                ->setMessage($this->request->getParam('message'))
+                ->setCustomerId((int) $this->customerSession->getCustomerId())
+                ->setWebsiteId((int) $this->storeManager->getStore()->getWebsiteId())
+                ->setStatus(DiscountRequest::STATUS_PENDING);
             $this->discountRequestResource->save($discountRequest);
-            $message = __('You request for product %1 was accepted!', $this->request->getParam('productName'));
+            $formSaved = true;
+        } catch (\InvalidArgumentException $e) {
+            // No need to log form key validation errors
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage());
-            $message = __('Your request can\'t be sent. Please, contact us if you see this message.');
         }
+
+        $message = $formSaved
+            ? __('You request for product %1 was accepted!', $this->request->getParam('productName'))
+            : __('Your request can\'t be sent. Please, contact us if you see this message.');
 
         return $response->setData([
             'message' => $message
