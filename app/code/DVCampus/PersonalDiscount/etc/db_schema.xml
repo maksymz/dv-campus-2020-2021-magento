@@ -5,6 +5,9 @@
         <column xsi:type="int" name="discount_request_id" padding="10" unsigned="true" nullable="false" identity="true"
                 comment="Discount Request ID"
         />
+        <column xsi:type="int" name="product_id"  padding="10" unsigned="true" nullable="true"
+                comment="Product ID"
+        />
         <column xsi:type="int" name="customer_id" padding="10" unsigned="true" nullable="true"
                 comment="Customer ID"
         />
@@ -32,16 +35,23 @@
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="discount_request_id"/>
         </constraint>
+        <index referenceId="DV_CAMPUS_PERSONAL_DISCOUNT_REQUEST_PRODUCT_ID" indexType="btree">
+            <column name="product_id"/>
+        </index>
         <index referenceId="DV_CAMPUS_PERSONAL_DISCOUNT_REQUEST_CUSTOMER_ID" indexType="btree">
             <column name="customer_id"/>
         </index>
         <index referenceId="DV_CAMPUS_PERSONAL_DISCOUNT_REQUEST_WEBSITE_ID" indexType="btree">
             <column name="website_id"/>
         </index>
-        <constraint xsi:type="unique" referenceId="DV_CAMPUS_PERSONAL_DISCOUNT_REQUEST_EMAIL_WEBSITE_ID">
-            <column name="email"/>
-            <column name="website_id"/>
-        </constraint>
+        <constraint xsi:type="foreign"
+                    referenceId="FK_68639DD926623E304E1418089814DD13"
+                    table="dv_campus_personal_discount_request"
+                    column="product_id"
+                    referenceTable="catalog_product_entity"
+                    referenceColumn="entity_id"
+                    onDelete="SET NULL"
+        />
         <constraint xsi:type="foreign"
                     referenceId="FK_5BBB19523714F56945A93C55FDC5C179"
                     table="dv_campus_personal_discount_request"

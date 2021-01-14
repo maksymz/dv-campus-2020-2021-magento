@@ -89,7 +89,6 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
     {
         $response = $this->jsonResponseFactory->create();
         // @TODO: pass message via notifications, not alert
-        // @TODO: add form key validation and hideIt validation
         // @TODO: add Google Recaptcha to the form
         $formSaved = false;
 
@@ -98,12 +97,15 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
                 throw new \InvalidArgumentException('Form key is not valid');
             }
 
+            $customerId = $this->customerSession->getCustomerId() ? (int) $this->customerSession->getCustomerId() : null;
             /** @var DiscountRequest $discountRequest */
             $discountRequest = $this->discountRequestFactory->create();
-            $discountRequest->setName($this->request->getParam('name'))
+            // @TODO: validate product ID - check that it exists
+            $discountRequest->setProductId((int) $this->request->getParam('product_id'))
+                ->setName($this->request->getParam('name'))
                 ->setEmail($this->request->getParam('email'))
                 ->setMessage($this->request->getParam('message'))
-                ->setCustomerId((int) $this->customerSession->getCustomerId())
+                ->setCustomerId($customerId)
                 ->setWebsiteId((int) $this->storeManager->getStore()->getWebsiteId())
                 ->setStatus(DiscountRequest::STATUS_PENDING);
             $this->discountRequestResource->save($discountRequest);

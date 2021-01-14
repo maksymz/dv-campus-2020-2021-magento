@@ -12,12 +12,13 @@
             "updated_at": true
         },
         "index": {
+            "DV_CAMPUS_PERSONAL_DISCOUNT_REQUEST_PRODUCT_ID": true,
             "DV_CAMPUS_PERSONAL_DISCOUNT_REQUEST_CUSTOMER_ID": true,
             "DV_CAMPUS_PERSONAL_DISCOUNT_REQUEST_WEBSITE_ID": true
         },
         "constraint": {
             "PRIMARY": true,
-            "DV_CAMPUS_PERSONAL_DISCOUNT_REQUEST_EMAIL_WEBSITE_ID": true,
+            "FK_68639DD926623E304E1418089814DD13": true,
             "FK_5BBB19523714F56945A93C55FDC5C179": true,
             "DV_CAMPUS_PERSONAL_DISCOUNT_REQUEST_WS_ID_M2_STORE_WS_WS_ID": true
         }
