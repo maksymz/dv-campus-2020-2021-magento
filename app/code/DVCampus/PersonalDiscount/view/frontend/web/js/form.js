@@ -25,6 +25,8 @@ define([
             $(document).on('dv_campus_personal_discount_form_open', this.openModal.bind(this));
             $(this.element).on('submit.dv_campus_personal_discount_form', this.sendRequest.bind(this));
 
+            // @TODO: hide or disable email field for logged in customer
+            // @TODO: hide button if this product has already been requested
             console.log(customerData.get('personal-discount')());
             customerData.get('personal-discount').subscribe(function (value) {
                 console.log(value);

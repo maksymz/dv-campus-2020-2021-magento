@@ -48,6 +48,7 @@ class PersonalDiscountInfo extends \Magento\Framework\View\Element\Template
         // @TODO: get current customer's ID
         $collection->addFieldToFilter('email', 'john-doe@example.com');
         // @TODO: check if accounts are shared or not
+        // Products are shared, so may get all IDs
         $collection->addFieldToFilter('website_id', $this->storeManager->getStore()->getWebsiteId());
         /** @var DiscountRequest $discountRequest */
         $discountRequest = $collection->getFirstItem();
