@@ -8,15 +8,9 @@ use DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest\Collection as 
 
 class DiscountRequests implements \Magento\Customer\CustomerData\SectionSourceInterface
 {
-    /**
-     * @var \Magento\Customer\Model\Session $customerSession
-     */
-    private $customerSession;
+    private \Magento\Customer\Model\Session $customerSession;
 
-    /**
-     * @var \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest\CollectionFactory $discountRequestCollectionFactory
-     */
-    private $discountRequestCollectionFactory;
+    private \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest\CollectionFactory $discountRequestCollectionFactory;
 
     /**
      * DiscountRequests constructor.

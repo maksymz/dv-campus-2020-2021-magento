@@ -7,7 +7,7 @@ namespace DVCampus\PersonalDiscount\Block\Product\View;
 class DiscountRequestForm extends \Magento\Catalog\Block\Product\View
 {
     /**
-     *
+     * @inheridoc
      */
     protected function _construct(): void
     {

@@ -5,10 +5,7 @@ namespace DVCampus\PersonalDiscount\Setup\Patch\Schema;
 
 class DropExtraDemoColumn implements \Magento\Framework\Setup\Patch\SchemaPatchInterface
 {
-    /**
-     * @var \Magento\Framework\Setup\ModuleDataSetupInterface $schemaSetup
-     */
-    private $schemaSetup;
+    private \Magento\Framework\Setup\SchemaSetupInterface $schemaSetup;
 
     /**
      * RemoveOldForeignKeys constructor.

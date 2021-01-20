@@ -10,15 +10,9 @@ use Magento\Framework\Phrase;
 
 class PersonalDiscountInfo extends \Magento\Framework\View\Element\Template
 {
-    /**
-     * @var \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest\CollectionFactory $collectionFactorys
-     */
-    private $collectionFactory;
+    private \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest\CollectionFactory $collectionFactory;
 
-    /**
-     * @var \Magento\Store\Model\StoreManagerInterface $storeManager
-     */
-    private $storeManager;
+    private \Magento\Store\Model\StoreManagerInterface $storeManager;
 
     /**
      * PersonalDiscountInfo constructor.

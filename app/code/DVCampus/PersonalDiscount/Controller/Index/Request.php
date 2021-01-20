@@ -9,45 +9,21 @@ use DVCampus\PersonalDiscount\Model\DiscountRequest;
 
 class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
 {
-    /**
-     * @var \Magento\Framework\App\RequestInterface $request
-     */
-    private $request;
+    private \Magento\Framework\App\RequestInterface $request;
 
-    /**
-     * @var \Magento\Framework\Controller\Result\JsonFactory $jsonResponseFactory
-     */
-    private $jsonResponseFactory;
+    private \Magento\Framework\Controller\Result\JsonFactory $jsonResponseFactory;
 
-    /**
-     * @var \DVCampus\PersonalDiscount\Model\DiscountRequestFactory $discountRequestFactory
-     */
-    private $discountRequestFactory;
+    private \DVCampus\PersonalDiscount\Model\DiscountRequestFactory $discountRequestFactory;
 
-    /**
-     * @var \Magento\Store\Model\StoreManagerInterface $storeManager
-     */
-    private $storeManager;
+    private \Magento\Store\Model\StoreManagerInterface $storeManager;
 
-    /**
-     * @var \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest $discountRequestResource
-     */
-    private $discountRequestResource;
+    private \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest $discountRequestResource;
 
-    /**
-     * @var \Magento\Customer\Model\Session $customerSession
-     */
-    private $customerSession;
+    private \Magento\Customer\Model\Session $customerSession;
 
-    /**
-     * @var \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
-     */
-    private $formKeyValidator;
+    private \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator;
 
-    /**
-     * @var \Psr\Log\LoggerInterface $logger
-     */
-    private $logger;
+    private \Psr\Log\LoggerInterface $logger;
 
     /**
      * Controller constructor.
