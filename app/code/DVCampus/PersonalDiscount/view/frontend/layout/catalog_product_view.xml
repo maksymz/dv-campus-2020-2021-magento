@@ -16,7 +16,7 @@
                        group="detailed_info"
                 />
                 <block class="DVCampus\PersonalDiscount\Block\Product\View\DiscountRequestForm"
-                       name="dv.campus.personal.discount.form"
+                       name="dv-campus-personal-discount-form"
                        template="DVCampus_PersonalDiscount::catalog/product/view/discount/form.phtml"
                        group="detailed_info"
                 />
