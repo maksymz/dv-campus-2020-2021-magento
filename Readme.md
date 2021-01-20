@@ -40,3 +40,23 @@ Deployment process flow implemented in the above files:
 6) copy generated files from the build system;
 7) switch to the production mode;
 8) turn off maintenance (only for `deploy-full.sh`).
+
+
+# Applied Patches #
+
+Patches location: `var/patches/`
+
+---
+
+**Issue**: The command `i18n:collect-phrases` does not collect phrases defined in HTML files via `translate` and `$t()`.
+
+**Issue info**: [i18n:collect-phrases -m can't find many important magento phrases](https://github.com/magento/magento2/issues/11175#)
+
+**Affected component(s)**: `magento/magento2-base`
+
+**Patch file(s)**:
+- GitHub-11175_Fix-for-html-parser-in-i18n-collect-phrases.patch
+
+**Fixed in**: Magento 2.4.2 (possibly only a partial fix will be shipped)
+
+---
