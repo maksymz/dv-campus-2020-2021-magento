@@ -1,4 +1,4 @@
-<?php /** @var \Magento\Catalog\Block\Product\View $block */ ?>
+<?php /** @var \DVCampus\PersonalDiscount\Block\Product\View\DiscountRequestForm $block */ ?>
 <?php /** @var \Magento\Framework\Escaper $escaper */ ?>
 <div style="display: none;">
     <form class="form"
@@ -7,7 +7,7 @@
           method="post"
           data-mage-init='{"dvCampusPersonalDiscountForm":{
               "action": "<?= $escaper->escapeJs($block->getUrl('dvcampus_personal_discount/index/request')) ?>",
-              "productName": "<?= $escaper->escapeJs($block->getProduct()->getName()) ?>"
+              "productId": "<?= $escaper->escapeJs((int) $block->getProduct()->getId()) ?>"
           }}'
           onsubmit="return false;"
     >

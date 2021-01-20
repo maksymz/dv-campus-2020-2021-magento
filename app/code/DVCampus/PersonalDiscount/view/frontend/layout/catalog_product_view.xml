@@ -15,7 +15,7 @@
                        template="DVCampus_PersonalDiscount::catalog/product/view/discount/button.phtml"
                        group="detailed_info"
                 />
-                <block class="Magento\Catalog\Block\Product\View"
+                <block class="DVCampus\PersonalDiscount\Block\Product\View\DiscountRequestForm"
                        name="dv.campus.personal.discount.form"
                        template="DVCampus_PersonalDiscount::catalog/product/view/discount/form.phtml"
                        group="detailed_info"

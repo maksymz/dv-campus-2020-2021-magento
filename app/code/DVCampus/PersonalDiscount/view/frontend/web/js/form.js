@@ -1,16 +1,17 @@
 define([
     'jquery',
+    'Magento_Customer/js/customer-data',
     'Magento_Ui/js/modal/alert',
     'Magento_Ui/js/modal/modal',
     'mage/translate',
     'mage/cookies'
-], function ($, alert) {
+], function ($, customerData, alert) {
     'use strict';
 
     $.widget('dvCampus.personalDiscountForm', {
         options: {
             action: '',
-            productName: ''
+            productId: ''
         },
 
         /**
@@ -23,6 +24,13 @@ define([
 
             $(document).on('dv_campus_personal_discount_form_open', this.openModal.bind(this));
             $(this.element).on('submit.dv_campus_personal_discount_form', this.sendRequest.bind(this));
+
+            // @TODO: hide or disable email field for logged in customer
+            // @TODO: hide button if this product has already been requested
+            console.log(customerData.get('personal-discount')());
+            customerData.get('personal-discount').subscribe(function (value) {
+                console.log(value);
+            });
         },
 
         /**
@@ -56,7 +64,7 @@ define([
         ajaxSubmit: function () {
             let formData = new FormData($(this.element).get(0));
 
-            formData.append('productName', this.options.productName);
+            formData.append('product_id', this.options.productId);
             formData.append('form_key', $.mage.cookies.get('form_key'));
             formData.append('isAjax', 1);
 

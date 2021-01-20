@@ -6,6 +6,8 @@ namespace DVCampus\PersonalDiscount\Model;
 
 /**
  * @method int|string|null getDiscountRequestId()
+ * @method int|string|null getProductId()
+ * @method $this setProductId(int $productId)
  * @method int|string|null getCustomerId()
  * @method $this setCustomerId(int $customerId)
  * @method string|null getName()
