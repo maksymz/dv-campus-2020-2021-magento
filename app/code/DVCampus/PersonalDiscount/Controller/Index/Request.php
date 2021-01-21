@@ -89,6 +89,7 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
             $this->discountRequestResource->save($discountRequest);
 
             if (!$this->customerSession->isLoggedIn()) {
+                $this->customerSession->setDiscountRequestCustomerName($this->request->getParam('name'));
                 $this->customerSession->setDiscountRequestCustomerEmail($this->request->getParam('email'));
                 $productIds = $this->customerSession->getDiscountRequestProductIds() ?? [];
                 $productIds[] = $productId;
