@@ -3,7 +3,7 @@
     <body>
         <referenceBlock name="product.info.details">
             <block class="Magento\Framework\View\Element\Text\ListText"
-                   name="dv.campus.personal.discount.tab"
+                   name="dv-campus-personal-discount-form"
                    group="detailed_info"
             >
                 <arguments>
