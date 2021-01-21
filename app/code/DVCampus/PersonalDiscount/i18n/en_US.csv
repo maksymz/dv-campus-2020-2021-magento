@@ -4,13 +4,15 @@ declined,declined
 "You request for product %1 was accepted!","You request for product %1 was accepted!"
 "Your request can't be sent. Please, contact us if you see this message.","Your request can't be sent. Please, contact us if you see this message."
 "Request Personal Discount","Request Personal Discount"
+"Request status:","Request status:"
+"No discount request","No discount request"
 "Discount Request","Discount Request"
 Name,Name
 Email,Email
 Message,Message
 "Request a Discount","Request a Discount"
-"Request status:","Request status:"
-"No discount request","No discount request"
+"Your Name","Your Name"
+"Your Email","Your Email"
 Success,Success
 Error,Error
 "Personal Discount","Personal Discount"

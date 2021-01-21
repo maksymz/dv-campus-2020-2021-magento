@@ -12,20 +12,31 @@ define([
 
     return Component.extend({
         defaults: {
-            template: 'DVCampus_PersonalDiscount/form'
+            template: 'DVCampus_PersonalDiscount/form',
+            customerName: '',
+            customerEmail: '',
+            customerMessage: ''
         },
 
-        customerName: ko.observable(),
-        customerEmail: ko.observable(),
-        customerMessage: ko.observable(),
-
+        /**
+         *
+         * @returns {*}
+         */
         initObservable: function () {
-            this._super();
+            this._super()
+                .observe(['customerName', 'customerEmail', 'customerMessage']);
             this.customerName.subscribe(function (newValue) {
                 console.log(newValue);
             });
 
             return this;
+        },
+
+        /**
+         * Send form data to the server
+         */
+        sendPersonalDiscountRequest: function () {
+            console.log('Going to submit the form');
         }
     });
 });

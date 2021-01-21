@@ -10,7 +10,9 @@
             "Magento_Ui/js/core/app": {
                 "components": {
                     "personalDiscountRequestForm": {
-                        "component": "dvCampusPersonalDiscountForm"
+                        "component": "dvCampusPersonalDiscountForm",
+                        "action": "<?= $escaper->escapeJs($block->getUrl('dvcampus_personal_discount/index/request')) ?>",
+                        "productId": <?= (int) $block->getProduct()->getId() ?>
                     }
                 }
             }
