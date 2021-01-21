@@ -75,6 +75,7 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
 
             $customerId = $this->customerSession->getCustomerId() ? (int) $this->customerSession->getCustomerId() : null;
             // @TODO: validate product ID - check that it exists
+            // @TODO: implement backend validators for customer input
             $productId = (int) $this->request->getParam('product_id');
             /** @var DiscountRequest $discountRequest */
             $discountRequest = $this->discountRequestFactory->create();
