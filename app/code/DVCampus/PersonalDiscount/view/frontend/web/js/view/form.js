@@ -12,67 +12,54 @@ define([
 
     return Component.extend({
         defaults: {
+            action: '',
             customerName: '',
             customerEmail: '',
             customerMessage: '',
+            hideIt: '',
+            productId: 0,
             template: 'DVCampus_PersonalDiscount/form'
         },
 
+        /**
+         * @returns {*}
+         */
         initObservable: function () {
             this._super();
-            this.observe(['customerName', 'customerEmail', 'customerMessage']);
+            this.observe(['customerName', 'customerEmail', 'customerMessage', 'hideIt']);
 
             this.customerName.subscribe(function (newValue) {
                 console.log(newValue);
             });
 
+            // console.log(customerData.get('personal-discount')());
+            // customerData.get('personal-discount').subscribe(function (value) {
+            //     console.log(value);
+            // });
+
             return this;
         },
 
-        /**
-         * Send form data to the server
-         */
-        sendPersonalDiscountRequest: function () {
-            console.log('Going to submit the form');
-        }
-    });
-
-    $.widget('dvCampus.personalDiscountForm', {
-        options: {
-            action: '',
-            productId: ''
-        },
-
-        /**
-         * @private
-         */
-        _create: function () {
-            $(this.element).modal({
+        initModal: function (element) {
+            this.$form = $(element);
+            this.$modal = this.$form.modal({
                 buttons: []
             });
 
             $(document).on('dv_campus_personal_discount_form_open', this.openModal.bind(this));
-            $(this.element).on('submit.dv_campus_personal_discount_form', this.sendRequest.bind(this));
-
-            // @TODO: hide or disable email field for logged in customer
-            // @TODO: hide button if this product has already been requested
-            console.log(customerData.get('personal-discount')());
-            customerData.get('personal-discount').subscribe(function (value) {
-                console.log(value);
-            });
         },
 
         /**
          * Open modal dialog
          */
         openModal: function () {
-            $(this.element).modal('openModal');
+            this.$modal.modal('openModal');
         },
 
         /**
-         * Validate form and send request
+         * Send form data to the server
          */
-        sendRequest: function () {
+        sendPersonalDiscountRequest: function () {
             if (!this.validateForm()) {
                 return;
             }
@@ -84,24 +71,26 @@ define([
          * Validate request form
          */
         validateForm: function () {
-            return $(this.element).validation().valid();
+            return this.$form.validation().valid();
         },
 
         /**
          * Submit request via AJAX. Add form key to the post data.
          */
         ajaxSubmit: function () {
-            let formData = new FormData($(this.element).get(0));
-
-            formData.append('product_id', this.options.productId);
-            formData.append('form_key', $.mage.cookies.get('form_key'));
-            formData.append('isAjax', 1);
+            let payload = {
+                name: this.customerName(),
+                email: this.customerEmail(),
+                message: this.customerMessage(),
+                'product_id': this.productId,
+                'form_key': $.mage.cookies.get('form_key'),
+                isAjax: 1,
+                'hide_it': this.hideIt()
+            };
 
             $.ajax({
-                url: this.options.action,
-                data: formData,
-                processData: false,
-                contentType: false,
+                url: this.action,
+                data: payload,
                 type: 'post',
                 dataType: 'json',
                 context: this,
@@ -113,7 +102,6 @@ define([
 
                 /** @inheritdoc */
                 success: function (response) {
-                    $(this.element).modal('closeModal');
                     alert({
                         title: $.mage.__('Success'),
                         content: response.message
@@ -131,6 +119,7 @@ define([
 
                 /** @inheritdoc */
                 complete: function () {
+                    this.$modal.modal('closeModal');
                     $('body').trigger('processStop');
                 }
             });
