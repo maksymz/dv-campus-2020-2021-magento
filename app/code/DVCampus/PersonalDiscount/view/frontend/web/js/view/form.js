@@ -27,6 +27,13 @@ define([
             });
 
             return this;
+        },
+
+        /**
+         * Send form data to the server
+         */
+        sendPersonalDiscountRequest: function () {
+            console.log('Going to submit the form');
         }
     });
 
