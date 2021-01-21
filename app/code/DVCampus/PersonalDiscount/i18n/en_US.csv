@@ -6,6 +6,7 @@ declined,declined
 "Request Personal Discount","Request Personal Discount"
 "Request status:","Request status:"
 "No discount request","No discount request"
+"Discount has already been requested for this product.","Discount has already been requested for this product."
 "Discount Request","Discount Request"
 Name,Name
 Email,Email

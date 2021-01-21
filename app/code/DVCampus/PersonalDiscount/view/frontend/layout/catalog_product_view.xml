@@ -10,12 +10,12 @@
                     <argument name="sort_order" xsi:type="string">40</argument>
                     <argument translate="true" name="title" xsi:type="string">Personal Discount</argument>
                 </arguments>
-                <block class="Magento\Framework\View\Element\Template"
+                <block class="DVCampus\PersonalDiscount\Block\Product\View\DiscountRequest"
                        name="dv.campus.personal.discount.button"
                        template="DVCampus_PersonalDiscount::catalog/product/view/discount/button.phtml"
                        group="detailed_info"
                 />
-                <block class="DVCampus\PersonalDiscount\Block\Product\View\DiscountRequestForm"
+                <block class="DVCampus\PersonalDiscount\Block\Product\View\DiscountRequest"
                        name="dv-campus-personal-discount-form"
                        template="DVCampus_PersonalDiscount::catalog/product/view/discount/form.phtml"
                        group="detailed_info"
