@@ -10,16 +10,36 @@
                     <argument name="sort_order" xsi:type="string">40</argument>
                     <argument translate="true" name="title" xsi:type="string">Personal Discount</argument>
                 </arguments>
-                <block class="DVCampus\PersonalDiscount\Block\Product\View\DiscountRequest"
+                <block class="Magento\Catalog\Block\Product\View"
                        name="dv.campus.personal.discount.button"
                        template="DVCampus_PersonalDiscount::catalog/product/view/discount/button.phtml"
                        group="detailed_info"
-                />
-                <block class="DVCampus\PersonalDiscount\Block\Product\View\DiscountRequest"
+                >
+                    <arguments>
+                        <argument name="cache_lifetime" xsi:type="number">84600</argument>
+                        <argument name="jsLayout" xsi:type="array">
+                            <!-- Choose either `updater` or `xsi:type="helper"` -->
+                            <updater>DVCampus\PersonalDiscount\View\CurrentProductIdProvider</updater>
+                            <item name="components" xsi:type="array">
+                                <item name="personalDiscountRequestButton" xsi:type="array">
+                                    <item name="component" xsi:type="string">dvCampusPersonalDiscountButton</item>
+                                    <item name="productId" xsi:type="helper"
+                                          helper="DVCampus\PersonalDiscount\Helper\CurrentProduct::getCurrentProductId"
+                                    />
+                                </item>
+                            </item>
+                        </argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Catalog\Block\Product\View"
                        name="dv.campus.personal.discount.form"
                        template="DVCampus_PersonalDiscount::catalog/product/view/discount/form.phtml"
                        group="detailed_info"
-                />
+                >
+                    <arguments>
+                        <argument name="cache_lifetime" xsi:type="number">84600</argument>
+                    </arguments>
+                </block>
             </block>
         </referenceBlock>
     </body>
