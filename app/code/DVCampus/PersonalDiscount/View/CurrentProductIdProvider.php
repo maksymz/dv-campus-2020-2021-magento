@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace DVCampus\PersonalDiscount\View;
 
+/**
+ * Class CurrentProductIdProvider
+ * @package DVCampus\PersonalDiscount\View
+ * @deprecared - Potentially unusable, because we deal with several components
+ */
 class CurrentProductIdProvider implements \Magento\Framework\View\Layout\Argument\UpdaterInterface
 {
     private \Magento\Framework\Registry $registry;
@@ -21,7 +26,7 @@ class CurrentProductIdProvider implements \Magento\Framework\View\Layout\Argumen
     /**
      * @inheritdoc
      */
-    public function update($argument)
+    public function update($value): array
     {
         $argument['components']['personalDiscountRequestButton']['productId']
             = (int) $this->registry->registry('product')->getId();

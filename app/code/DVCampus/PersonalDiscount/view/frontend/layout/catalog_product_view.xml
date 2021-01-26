@@ -19,13 +19,15 @@
                         <argument name="cache_lifetime" xsi:type="number">84600</argument>
                         <argument name="jsLayout" xsi:type="array">
                             <!-- Choose either `updater` or `xsi:type="helper"` -->
-                            <updater>DVCampus\PersonalDiscount\View\CurrentProductIdProvider</updater>
+                            <!-- <updater>DVCampus\PersonalDiscount\View\CurrentProductIdProvider</updater> -->
                             <item name="components" xsi:type="array">
                                 <item name="personalDiscountRequestButton" xsi:type="array">
                                     <item name="component" xsi:type="string">dvCampusPersonalDiscountButton</item>
-                                    <item name="productId" xsi:type="helper"
-                                          helper="DVCampus\PersonalDiscount\Helper\CurrentProduct::getCurrentProductId"
-                                    />
+                                    <item name="config" xsi:type="array">
+                                        <item name="productId" xsi:type="helper"
+                                              helper="DVCampus\PersonalDiscount\Helper\CurrentProduct::getCurrentProductId"
+                                        />
+                                    </item>
                                 </item>
                             </item>
                         </argument>
@@ -38,6 +40,19 @@
                 >
                     <arguments>
                         <argument name="cache_lifetime" xsi:type="number">84600</argument>
+                        <argument name="jsLayout" xsi:type="array">
+                            <item name="components" xsi:type="array">
+                                <item name="personalDiscountRequestForm" xsi:type="array">
+                                    <item name="component" xsi:type="string">dvCampusPersonalDiscountForm</item>
+                                    <item name="config" xsi:type="array">
+                                        <item name="action" xsi:type="url" path="dvcampus_personal_discount/index/request"/>
+                                        <item name="productId" xsi:type="helper"
+                                              helper="DVCampus\PersonalDiscount\Helper\CurrentProduct::getCurrentProductId"
+                                        />
+                                    </item>
+                                </item>
+                            </item>
+                        </argument>
                     </arguments>
                 </block>
             </block>
