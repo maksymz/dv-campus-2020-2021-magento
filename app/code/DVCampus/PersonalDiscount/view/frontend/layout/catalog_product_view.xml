@@ -10,9 +10,9 @@
                     <argument name="sort_order" xsi:type="string">40</argument>
                     <argument translate="true" name="title" xsi:type="string">Personal Discount</argument>
                 </arguments>
-                <block class="Magento\Catalog\Block\Product\View"
-                       name="dv.campus.personal.discount.button"
-                       template="DVCampus_PersonalDiscount::catalog/product/view/discount/button.phtml"
+                <block class="DVCampus\PersonalDiscount\Block\Product\View\DiscountRequest"
+                       name="dv.campus.personal.discount.tab.content"
+                       template="DVCampus_PersonalDiscount::catalog/product/view/discount/personal_discount_request.phtml"
                        group="detailed_info"
                 >
                     <arguments>
@@ -21,34 +21,31 @@
                             <!-- Choose either `updater` or `xsi:type="helper"` -->
                             <!-- <updater>DVCampus\PersonalDiscount\View\CurrentProductIdProvider</updater> -->
                             <item name="components" xsi:type="array">
-                                <item name="personalDiscountRequestButton" xsi:type="array">
-                                    <item name="component" xsi:type="string">dvCampusPersonalDiscountButton</item>
+                                <item name="personalDiscountRequestTab" xsi:type="array">
+                                    <item name="component" xsi:type="string">uiComponent</item>
                                     <item name="config" xsi:type="array">
-                                        <item name="productId" xsi:type="helper"
-                                              helper="DVCampus\PersonalDiscount\Helper\CurrentProduct::getCurrentProductId"
-                                        />
+                                        <item name="template" xsi:type="string">DVCampus_PersonalDiscount/tab</item>
                                     </item>
-                                </item>
-                            </item>
-                        </argument>
-                    </arguments>
-                </block>
-                <block class="Magento\Catalog\Block\Product\View"
-                       name="dv.campus.personal.discount.form"
-                       template="DVCampus_PersonalDiscount::catalog/product/view/discount/form.phtml"
-                       group="detailed_info"
-                >
-                    <arguments>
-                        <argument name="cache_lifetime" xsi:type="number">84600</argument>
-                        <argument name="jsLayout" xsi:type="array">
-                            <item name="components" xsi:type="array">
-                                <item name="personalDiscountRequestForm" xsi:type="array">
-                                    <item name="component" xsi:type="string">dvCampusPersonalDiscountForm</item>
-                                    <item name="config" xsi:type="array">
-                                        <item name="action" xsi:type="url" path="dvcampus_personal_discount/index/request"/>
-                                        <item name="productId" xsi:type="helper"
-                                              helper="DVCampus\PersonalDiscount\Helper\CurrentProduct::getCurrentProductId"
-                                        />
+                                    <item name="children" xsi:type="array">
+                                        <item name="personalDiscountRequestButton" xsi:type="array">
+                                            <item name="component" xsi:type="string">dvCampusPersonalDiscountButton</item>
+                                            <item name="displayArea" xsi:type="string">dvCampus-personalDiscount-button</item>
+                                            <item name="config" xsi:type="array">
+                                                <item name="productId" xsi:type="helper"
+                                                      helper="DVCampus\PersonalDiscount\Helper\CurrentProduct::getCurrentProductId"
+                                                />
+                                            </item>
+                                        </item>
+                                        <item name="personalDiscountRequestForm" xsi:type="array">
+                                            <item name="component" xsi:type="string">dvCampusPersonalDiscountForm</item>
+                                            <item name="displayArea" xsi:type="string">dvCampus-personalDiscount-form</item>
+                                            <item name="config" xsi:type="array">
+                                                <item name="action" xsi:type="url" path="dvcampus_personal_discount/index/request"/>
+                                                <item name="productId" xsi:type="helper"
+                                                      helper="DVCampus\PersonalDiscount\Helper\CurrentProduct::getCurrentProductId"
+                                                />
+                                            </item>
+                                        </item>
                                     </item>
                                 </item>
                             </item>
