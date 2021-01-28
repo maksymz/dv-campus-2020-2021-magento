@@ -22,18 +22,15 @@
                             <!-- <updater>DVCampus\PersonalDiscount\View\CurrentProductIdProvider</updater> -->
                             <item name="components" xsi:type="array">
                                 <item name="personalDiscountRequestTab" xsi:type="array">
-                                    <item name="component" xsi:type="string">uiComponent</item>
-                                    <item name="config" xsi:type="array">
-                                        <item name="template" xsi:type="string">DVCampus_PersonalDiscount/tab</item>
-                                    </item>
+                                    <item name="component" xsi:type="string">uiCollection</item>
                                     <item name="children" xsi:type="array">
                                         <item name="personalDiscountRequestButton" xsi:type="array">
                                             <item name="component" xsi:type="string">dvCampusPersonalDiscountButton</item>
                                             <item name="displayArea" xsi:type="string">dvCampus-personalDiscount-button</item>
                                             <item name="config" xsi:type="array">
-                                                <item name="productId" xsi:type="helper"
-                                                      helper="DVCampus\PersonalDiscount\Helper\CurrentProduct::getCurrentProductId"
-                                                />
+                                                <item name="imports" xsi:type="array">
+                                                    <item name="productId" xsi:type="string">personalDiscountRequestTab.personalDiscountRequestForm:productId</item>
+                                                </item>
                                             </item>
                                         </item>
                                         <item name="personalDiscountRequestForm" xsi:type="array">

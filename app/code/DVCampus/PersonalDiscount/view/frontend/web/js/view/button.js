@@ -2,13 +2,13 @@ define([
     'jquery',
     'ko',
     'uiComponent',
-    'Magento_Customer/js/customer-data'
+    'Magento_Customer/js/customer-data',
+    'dvCampusPersonalDiscountForm'
 ], function ($, ko, Component, customerData) {
     'use strict';
 
     return Component.extend({
         defaults: {
-            productId: 0,
             requestAlreadySent: false,
             template: 'DVCampus_PersonalDiscount/button'
         },
@@ -18,6 +18,12 @@ define([
          */
         initObservable: function () {
             this._super().observe(['requestAlreadySent']);
+
+            return this;
+        },
+
+        initLinks: function () {
+            this._super();
 
             this.checkRequestAlreadySent(customerData.get('personal-discount')());
             customerData.get('personal-discount').subscribe(this.checkRequestAlreadySent.bind(this));
