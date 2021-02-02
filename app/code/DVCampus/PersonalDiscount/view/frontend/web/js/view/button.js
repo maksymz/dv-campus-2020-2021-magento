@@ -10,7 +10,11 @@ define([
     return Component.extend({
         defaults: {
             requestAlreadySent: false,
-            template: 'DVCampus_PersonalDiscount/button'
+            template: 'DVCampus_PersonalDiscount/button',
+            personalDiscount: customerData.get('personal-discount'),
+            listens: {
+                personalDiscount: 'checkRequestAlreadySent'
+            }
         },
 
         /**
@@ -25,8 +29,7 @@ define([
         initLinks: function () {
             this._super();
 
-            this.checkRequestAlreadySent(customerData.get('personal-discount')());
-            customerData.get('personal-discount').subscribe(this.checkRequestAlreadySent.bind(this));
+            this.checkRequestAlreadySent(this.personalDiscount());
 
             return this;
         },
