@@ -6,48 +6,33 @@ namespace DVCampus\PersonalDiscount\Controller\Index;
 
 use Magento\Framework\Controller\Result\Json as JsonResponse;
 use DVCampus\PersonalDiscount\Model\DiscountRequest;
+use Magento\Store\Model\ScopeInterface;
 
 class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
 {
-    /**
-     * @var \Magento\Framework\App\RequestInterface $request
-     */
-    private $request;
+    public const XML_PATH_DV_CAMPUS_PERSONAL_DISCOUNT_GENERAL_ENABLED
+        = 'dv_campus_personal_discount/general/enabled';
 
-    /**
-     * @var \Magento\Framework\Controller\Result\JsonFactory $jsonResponseFactory
-     */
-    private $jsonResponseFactory;
+    public const XML_PATH_DV_CAMPUS_PERSONAL_DISCOUNT_GENERAL_ALLOW_FOR_GUESTS
+        = 'dv_campus_personal_discount/general/allow_for_guests';
 
-    /**
-     * @var \DVCampus\PersonalDiscount\Model\DiscountRequestFactory $discountRequestFactory
-     */
-    private $discountRequestFactory;
+    private \Magento\Framework\App\RequestInterface $request;
 
-    /**
-     * @var \Magento\Store\Model\StoreManagerInterface $storeManager
-     */
-    private $storeManager;
+    private \Magento\Framework\Controller\Result\JsonFactory $jsonResponseFactory;
 
-    /**
-     * @var \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest $discountRequestResource
-     */
-    private $discountRequestResource;
+    private \DVCampus\PersonalDiscount\Model\DiscountRequestFactory $discountRequestFactory;
 
-    /**
-     * @var \Magento\Customer\Model\Session $customerSession
-     */
-    private $customerSession;
+    private \Magento\Store\Model\StoreManagerInterface $storeManager;
 
-    /**
-     * @var \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
-     */
-    private $formKeyValidator;
+    private \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest $discountRequestResource;
 
-    /**
-     * @var \Psr\Log\LoggerInterface $logger
-     */
-    private $logger;
+    private \Magento\Customer\Model\Session $customerSession;
+
+    private \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator;
+
+    private \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig;
+
+    private \Psr\Log\LoggerInterface $logger;
 
     /**
      * Controller constructor.
@@ -58,6 +43,7 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
      * @param \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest $discountRequestResource
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
@@ -68,6 +54,7 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
         \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest $discountRequestResource,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Psr\Log\LoggerInterface $logger
     ) {
         $this->request = $request;
@@ -78,6 +65,7 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
         $this->customerSession = $customerSession;
         $this->logger = $logger;
         $this->formKeyValidator = $formKeyValidator;
+        $this->scopeConfig = $scopeConfig;
     }
 
     /**
@@ -93,11 +81,29 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
         $formSaved = false;
 
         try {
+            if (!$this->scopeConfig->getValue(
+                self::XML_PATH_DV_CAMPUS_PERSONAL_DISCOUNT_GENERAL_ENABLED,
+                ScopeInterface::SCOPE_WEBSITE
+            )) {
+                throw new \BadMethodCallException('Personal Discount requested, but the request can\'t be handled');
+            }
+
+            if (!$this->customerSession->isLoggedIn()
+                && !$this->scopeConfig->getValue(
+                    self::XML_PATH_DV_CAMPUS_PERSONAL_DISCOUNT_GENERAL_ENABLED,
+                    ScopeInterface::SCOPE_WEBSITE
+                )
+            ) {
+                throw new \BadMethodCallException('Personal Discount requested, but the request can\'t be handled');
+            }
+
             if (!$this->formKeyValidator->validate($this->request)) {
                 throw new \InvalidArgumentException('Form key is not valid');
             }
 
-            $customerId = $this->customerSession->getCustomerId() ? (int) $this->customerSession->getCustomerId() : null;
+            $customerId = $this->customerSession->getCustomerId()
+                ? (int) $this->customerSession->getCustomerId()
+                : null;
             // @TODO: validate product ID - check that it exists
             $productId = (int) $this->request->getParam('product_id');
             /** @var DiscountRequest $discountRequest */
