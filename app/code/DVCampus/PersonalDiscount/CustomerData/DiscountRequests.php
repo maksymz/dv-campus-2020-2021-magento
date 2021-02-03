@@ -8,15 +8,10 @@ use DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest\Collection as 
 
 class DiscountRequests implements \Magento\Customer\CustomerData\SectionSourceInterface
 {
-    /**
-     * @var \Magento\Customer\Model\Session $customerSession
-     */
-    private $customerSession;
+    private \Magento\Customer\Model\Session $customerSession;
 
-    /**
-     * @var \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest\CollectionFactory $discountRequestCollectionFactory
-     */
-    private $discountRequestCollectionFactory;
+    private \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest\CollectionFactory
+        $discountRequestCollectionFactory;
 
     /**
      * DiscountRequests constructor.
@@ -32,9 +27,9 @@ class DiscountRequests implements \Magento\Customer\CustomerData\SectionSourceIn
     }
 
     /**
-     * @return array|void
+     * @return array
      */
-    public function getSectionData(): ?array
+    public function getSectionData(): array
     {
         $name = (string) $this->customerSession->getDiscountRequestCustomerName();
         $email = (string) $this->customerSession->getDiscountRequestCustomerEmail();
@@ -48,7 +43,6 @@ class DiscountRequests implements \Magento\Customer\CustomerData\SectionSourceIn
                 $email = $this->customerSession->getCustomer()->getEmail();
             }
 
-            $customerEmail = $this->customerSession->getCustomer()->getEmail();
             /** @var DiscountRequestCollection $discountRequestCollection */
             $discountRequestCollection = $this->discountRequestCollectionFactory->create();
             $discountRequestCollection->addFieldToFilter('customer_id', $this->customerSession->getCustomerId());
@@ -56,13 +50,14 @@ class DiscountRequests implements \Magento\Customer\CustomerData\SectionSourceIn
             $productIds = array_unique($productIds);
             $productIds = array_values(array_map('intval', $productIds));
         } else {
-            $productIds = $this->customerSession->getDiscountRequestProductIds();
+            $productIds = (array) $this->customerSession->getDiscountRequestProductIds();
         }
 
         return [
             'name' => $name,
             'email' => $email,
-            'productIds' => $productIds
+            'productIds' => $productIds,
+            'isLoggedIn' => $this->customerSession->isLoggedIn()
         ];
     }
 }

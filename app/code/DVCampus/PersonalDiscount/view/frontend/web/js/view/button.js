@@ -3,12 +3,15 @@ define([
     'ko',
     'uiComponent',
     'Magento_Customer/js/customer-data',
+    'Magento_Customer/js/model/authentication-popup',
+    'Magento_Customer/js/action/login',
     'dvCampusPersonalDiscountForm'
-], function ($, ko, Component, customerData) {
+], function ($, ko, Component, customerData, authenticationPopup, loginAction) {
     'use strict';
 
     return Component.extend({
         defaults: {
+            allowForGuests: false,
             requestAlreadySent: false,
             template: 'DVCampus_PersonalDiscount/button',
             personalDiscount: customerData.get('personal-discount'),
@@ -20,12 +23,28 @@ define([
         /**
          * @returns {*}
          */
+        initialize: function () {
+            loginAction.registerLoginCallback(function () {
+                customerData.invalidate(['personal-discount']);
+            });
+
+            this._super();
+
+            return this;
+        },
+
+        /**
+         * @returns {*}
+         */
         initObservable: function () {
             this._super().observe(['requestAlreadySent']);
 
             return this;
         },
 
+        /**
+         * @returns {*}
+         */
         initLinks: function () {
             this._super();
 
@@ -38,7 +57,11 @@ define([
          * Generate event to open the form
          */
         openRequestForm: function () {
-            $(document).trigger('dv_campus_personal_discount_form_open');
+            if (this.allowForGuests || !!this.personalDiscount().isLoggedIn) {
+                $(document).trigger('dv_campus_personal_discount_form_open');
+            } else {
+                authenticationPopup.showModal();
+            }
         },
 
         /**
@@ -50,6 +73,8 @@ define([
             ) {
                 this.requestAlreadySent(true);
             }
+
+            return personalDiscountData;
         }
     });
 });

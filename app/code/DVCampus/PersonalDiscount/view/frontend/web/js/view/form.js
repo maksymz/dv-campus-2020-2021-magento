@@ -9,6 +9,7 @@ define([
 ], function ($, ko, Component, customerData, submitFormAction) {
     'use strict';
 
+    // @TODO: hide name and email fields for logged in customers
     return Component.extend({
         defaults: {
             action: '',
