@@ -25,7 +25,7 @@ define([
          */
         initialize: function () {
             loginAction.registerLoginCallback(function () {
-                customerData.invalidate(['personal-discount']);
+                customerData.invalidate(['*']);
             });
 
             this._super();

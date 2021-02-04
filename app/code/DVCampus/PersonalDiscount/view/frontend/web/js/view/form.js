@@ -16,6 +16,7 @@ define([
             customerName: '',
             customerEmail: '',
             customerMessage: '',
+            isLoggedIn: !!customerData.get('personal-discount')().isLoggedIn,
             hideIt: '',
             productId: 0,
             template: 'DVCampus_PersonalDiscount/form'
@@ -26,7 +27,7 @@ define([
          */
         initObservable: function () {
             this._super();
-            this.observe(['customerName', 'customerEmail', 'customerMessage', 'hideIt']);
+            this.observe(['customerName', 'customerEmail', 'customerMessage', 'isLoggedIn', 'hideIt']);
 
             this.updatePersonalDiscountData(customerData.get('personal-discount')());
             customerData.get('personal-discount').subscribe(this.updatePersonalDiscountData.bind(this));
@@ -46,6 +47,8 @@ define([
             if (personalDiscountData.hasOwnProperty('email')) {
                 this.customerEmail(personalDiscountData.email);
             }
+
+            this.isLoggedIn(personalDiscountData.isLoggedIn);
         },
 
         /**

@@ -91,13 +91,22 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
             $customerId = $this->customerSession->getCustomerId()
                 ? (int) $this->customerSession->getCustomerId()
                 : null;
+
+            if ($this->customerSession->isLoggedIn()) {
+                $name = $this->customerSession->getCustomer()->getName();
+                $email = $this->customerSession->getCustomer()->getEmail();
+            } else {
+                $name = $this->request->getParam('name');
+                $email = $this->request->getParam('email');
+            }
+
             // @TODO: validate product ID - check that it exists
             $productId = (int) $this->request->getParam('product_id');
             /** @var DiscountRequest $discountRequest */
             $discountRequest = $this->discountRequestFactory->create();
             $discountRequest->setProductId($productId)
-                ->setName($this->request->getParam('name'))
-                ->setEmail($this->request->getParam('email'))
+                ->setName($name)
+                ->setEmail($email)
                 ->setMessage($this->request->getParam('message'))
                 ->setCustomerId($customerId)
                 ->setWebsiteId((int) $this->storeManager->getStore()->getWebsiteId())
