@@ -7,7 +7,7 @@
         <section id="dv_campus_personal_discount" type="text" sortOrder="320" showInDefault="1" showInWebsite="1" showInStore="1">
             <label>Personal Discount</label>
             <tab>dv_campus</tab>
-            <resource>DvCampus_PersonalDiscount::config</resource>
+            <resource>DVCampus_PersonalDiscount::config</resource>
             <group id="general" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
                 <label>General Settings</label>
                 <comment>Settings per store view are not available</comment>
