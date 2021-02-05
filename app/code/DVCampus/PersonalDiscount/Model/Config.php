@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace DVCampus\PersonalDiscount\Helper;
+namespace DVCampus\PersonalDiscount\Model;
 
-use DVCampus\PersonalDiscount\Helper\Config as ConfigHelper;
 use Magento\Store\Model\ScopeInterface;
 
 class Config extends \Magento\Framework\App\Helper\AbstractHelper
@@ -21,7 +20,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     public function enabled(): bool
     {
         return (bool) $this->scopeConfig->getValue(
-            ConfigHelper::XML_PATH_DV_CAMPUS_PERSONAL_DISCOUNT_GENERAL_ENABLED,
+            self::XML_PATH_DV_CAMPUS_PERSONAL_DISCOUNT_GENERAL_ENABLED,
             ScopeInterface::SCOPE_WEBSITE
         );
     }
@@ -32,7 +31,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     public function allowForGuests(): bool
     {
         return (bool) $this->scopeConfig->getValue(
-            ConfigHelper::XML_PATH_DV_CAMPUS_PERSONAL_DISCOUNT_GENERAL_ALLOW_FOR_GUESTS,
+            self::XML_PATH_DV_CAMPUS_PERSONAL_DISCOUNT_GENERAL_ALLOW_FOR_GUESTS,
             ScopeInterface::SCOPE_WEBSITE
         );
     }

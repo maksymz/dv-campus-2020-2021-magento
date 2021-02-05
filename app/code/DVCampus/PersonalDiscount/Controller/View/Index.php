@@ -14,7 +14,7 @@ class Index extends \Magento\Framework\App\Action\Action implements \Magento\Fra
 
     private \Magento\Backend\Model\View\Result\ForwardFactory $forwardFactory;
 
-    private \DVCampus\PersonalDiscount\Helper\Config $configHelper;
+    private \DVCampus\PersonalDiscount\Model\Config $config;
 
     private \Magento\Customer\Model\Session $customerSession;
 
@@ -22,21 +22,21 @@ class Index extends \Magento\Framework\App\Action\Action implements \Magento\Fra
      * Controller constructor.
      * @param \Magento\Framework\View\Result\PageFactory $pageResponseFactory
      * @param \Magento\Backend\Model\View\Result\ForwardFactory $forwardFactory
-     * @param \DVCampus\PersonalDiscount\Helper\Config $configHelper
+     * @param \DVCampus\PersonalDiscount\Model\Config $config
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Framework\App\Action\Context $context
      */
     public function __construct(
         \Magento\Framework\View\Result\PageFactory $pageResponseFactory,
         \Magento\Backend\Model\View\Result\ForwardFactory $forwardFactory,
-        \DVCampus\PersonalDiscount\Helper\Config $configHelper,
+        \DVCampus\PersonalDiscount\Model\Config $config,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\App\Action\Context $context
     ) {
         parent::__construct($context);
         $this->pageResponseFactory = $pageResponseFactory;
         $this->forwardFactory = $forwardFactory;
-        $this->configHelper = $configHelper;
+        $this->config = $config;
         $this->customerSession = $customerSession;
     }
 
@@ -49,7 +49,7 @@ class Index extends \Magento\Framework\App\Action\Action implements \Magento\Fra
      */
     public function dispatch(RequestInterface $request): ResponseInterface
     {
-        if (!$this->customerSession->authenticate()) {
+        if ($this->config->enabled() && !$this->customerSession->authenticate()) {
             $this->_actionFlag->set('', 'no-dispatch', true);
         }
 
@@ -61,8 +61,9 @@ class Index extends \Magento\Framework\App\Action\Action implements \Magento\Fra
      */
     public function execute(): ResultInterface
     {
-        if (!$this->configHelper->enabled()) {
+        if (!$this->config->enabled()) {
             $resultForward = $this->forwardFactory->create();
+
             return $resultForward->forward('noroute');
         }
 

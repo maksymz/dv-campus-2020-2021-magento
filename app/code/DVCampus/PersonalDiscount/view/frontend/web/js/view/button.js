@@ -11,7 +11,7 @@ define([
 
     return Component.extend({
         defaults: {
-            allowForGuests: false,
+            allowForGuests: !!customerData.get('personal-discount')().allowForGuests,
             requestAlreadySent: false,
             template: 'DVCampus_PersonalDiscount/button',
             personalDiscount: customerData.get('personal-discount'),
@@ -37,7 +37,7 @@ define([
          * @returns {*}
          */
         initObservable: function () {
-            this._super().observe(['requestAlreadySent']);
+            this._super().observe(['requestAlreadySent', 'allowForGuests']);
 
             return this;
         },
@@ -57,7 +57,7 @@ define([
          * Generate event to open the form
          */
         openRequestForm: function () {
-            if (this.allowForGuests || !!this.personalDiscount().isLoggedIn) {
+            if (this.allowForGuests() || !!this.personalDiscount().isLoggedIn) {
                 $(document).trigger('dv_campus_personal_discount_form_open');
             } else {
                 authenticationPopup.showModal();
@@ -73,6 +73,8 @@ define([
             ) {
                 this.requestAlreadySent(true);
             }
+
+            this.allowForGuests(personalDiscountData.allowForGuests);
 
             return personalDiscountData;
         }

@@ -23,7 +23,7 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
 
     private \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator;
 
-    private \DVCampus\PersonalDiscount\Helper\Config $configHelper;
+    private \DVCampus\PersonalDiscount\Model\Config $config;
 
     private \Psr\Log\LoggerInterface $logger;
 
@@ -36,7 +36,7 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
      * @param \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest $discountRequestResource
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
-     * @param \DVCampus\PersonalDiscount\Helper\Config $configHelper
+     * @param \DVCampus\PersonalDiscount\Model\Config $config
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
@@ -47,7 +47,7 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
         \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest $discountRequestResource,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
-        \DVCampus\PersonalDiscount\Helper\Config $configHelper,
+        \DVCampus\PersonalDiscount\Model\Config $config,
         \Psr\Log\LoggerInterface $logger
     ) {
         $this->request = $request;
@@ -58,7 +58,7 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
         $this->customerSession = $customerSession;
         $this->logger = $logger;
         $this->formKeyValidator = $formKeyValidator;
-        $this->configHelper = $configHelper;
+        $this->config = $config;
     }
 
     /**
@@ -74,12 +74,12 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
         $formSaved = false;
 
         try {
-            if (!$this->configHelper->enabled()) {
+            if (!$this->config->enabled()) {
                 throw new \BadMethodCallException('Personal Discount requested, but the request can\'t be handled');
             }
 
             if (!$this->customerSession->isLoggedIn()
-                && !$this->configHelper->allowForGuests()
+                && !$this->config->allowForGuests()
             ) {
                 throw new \BadMethodCallException('Personal Discount requested, but the request can\'t be handled');
             }

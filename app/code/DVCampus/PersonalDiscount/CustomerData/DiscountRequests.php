@@ -13,17 +13,22 @@ class DiscountRequests implements \Magento\Customer\CustomerData\SectionSourceIn
     private \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest\CollectionFactory
         $discountRequestCollectionFactory;
 
+    private \DVCampus\PersonalDiscount\Model\Config $config;
+
     /**
      * DiscountRequests constructor.
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest\CollectionFactory $discountRequestCollectionFactory
+     * @param \DVCampus\PersonalDiscount\Model\Config $config
      */
     public function __construct(
         \Magento\Customer\Model\Session $customerSession,
-        \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest\CollectionFactory $discountRequestCollectionFactory
+        \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest\CollectionFactory $discountRequestCollectionFactory,
+        \DVCampus\PersonalDiscount\Model\Config $config
     ) {
         $this->customerSession = $customerSession;
         $this->discountRequestCollectionFactory = $discountRequestCollectionFactory;
+        $this->config = $config;
     }
 
     /**
@@ -57,7 +62,8 @@ class DiscountRequests implements \Magento\Customer\CustomerData\SectionSourceIn
             'name' => $name,
             'email' => $email,
             'productIds' => $productIds,
-            'isLoggedIn' => $this->customerSession->isLoggedIn()
+            'isLoggedIn' => $this->customerSession->isLoggedIn(),
+            'allowForGuests' => $this->config->allowForGuests()
         ];
     }
 }
