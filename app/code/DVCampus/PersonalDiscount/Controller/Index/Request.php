@@ -4,50 +4,28 @@ declare(strict_types=1);
 
 namespace DVCampus\PersonalDiscount\Controller\Index;
 
-use Magento\Framework\Controller\Result\Json as JsonResponse;
 use DVCampus\PersonalDiscount\Model\DiscountRequest;
+use Magento\Framework\Controller\Result\Json as JsonResponse;
 
 class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
 {
-    /**
-     * @var \Magento\Framework\App\RequestInterface $request
-     */
-    private $request;
+    private \Magento\Framework\App\RequestInterface $request;
 
-    /**
-     * @var \Magento\Framework\Controller\Result\JsonFactory $jsonResponseFactory
-     */
-    private $jsonResponseFactory;
+    private \Magento\Framework\Controller\Result\JsonFactory $jsonResponseFactory;
 
-    /**
-     * @var \DVCampus\PersonalDiscount\Model\DiscountRequestFactory $discountRequestFactory
-     */
-    private $discountRequestFactory;
+    private \DVCampus\PersonalDiscount\Model\DiscountRequestFactory $discountRequestFactory;
 
-    /**
-     * @var \Magento\Store\Model\StoreManagerInterface $storeManager
-     */
-    private $storeManager;
+    private \Magento\Store\Model\StoreManagerInterface $storeManager;
 
-    /**
-     * @var \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest $discountRequestResource
-     */
-    private $discountRequestResource;
+    private \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest $discountRequestResource;
 
-    /**
-     * @var \Magento\Customer\Model\Session $customerSession
-     */
-    private $customerSession;
+    private \Magento\Customer\Model\Session $customerSession;
 
-    /**
-     * @var \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
-     */
-    private $formKeyValidator;
+    private \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator;
 
-    /**
-     * @var \Psr\Log\LoggerInterface $logger
-     */
-    private $logger;
+    private \DVCampus\PersonalDiscount\Model\Config $config;
+
+    private \Psr\Log\LoggerInterface $logger;
 
     /**
      * Controller constructor.
@@ -58,6 +36,7 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
      * @param \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest $discountRequestResource
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
+     * @param \DVCampus\PersonalDiscount\Model\Config $config
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
@@ -68,6 +47,7 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
         \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest $discountRequestResource,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
+        \DVCampus\PersonalDiscount\Model\Config $config,
         \Psr\Log\LoggerInterface $logger
     ) {
         $this->request = $request;
@@ -78,6 +58,7 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
         $this->customerSession = $customerSession;
         $this->logger = $logger;
         $this->formKeyValidator = $formKeyValidator;
+        $this->config = $config;
     }
 
     /**
@@ -93,18 +74,39 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
         $formSaved = false;
 
         try {
+            if (!$this->config->enabled()) {
+                throw new \BadMethodCallException('Personal Discount requested, but the request can\'t be handled');
+            }
+
+            if (!$this->customerSession->isLoggedIn()
+                && !$this->config->allowForGuests()
+            ) {
+                throw new \BadMethodCallException('Personal Discount requested, but the request can\'t be handled');
+            }
+
             if (!$this->formKeyValidator->validate($this->request)) {
                 throw new \InvalidArgumentException('Form key is not valid');
             }
 
-            $customerId = $this->customerSession->getCustomerId() ? (int) $this->customerSession->getCustomerId() : null;
+            $customerId = $this->customerSession->getCustomerId()
+                ? (int) $this->customerSession->getCustomerId()
+                : null;
+
+            if ($this->customerSession->isLoggedIn()) {
+                $name = $this->customerSession->getCustomer()->getName();
+                $email = $this->customerSession->getCustomer()->getEmail();
+            } else {
+                $name = $this->request->getParam('name');
+                $email = $this->request->getParam('email');
+            }
+
             // @TODO: validate product ID - check that it exists
             $productId = (int) $this->request->getParam('product_id');
             /** @var DiscountRequest $discountRequest */
             $discountRequest = $this->discountRequestFactory->create();
             $discountRequest->setProductId($productId)
-                ->setName($this->request->getParam('name'))
-                ->setEmail($this->request->getParam('email'))
+                ->setName($name)
+                ->setEmail($email)
                 ->setMessage($this->request->getParam('message'))
                 ->setCustomerId($customerId)
                 ->setWebsiteId((int) $this->storeManager->getStore()->getWebsiteId())

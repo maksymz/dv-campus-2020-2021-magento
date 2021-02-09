@@ -3,12 +3,15 @@ define([
     'ko',
     'uiComponent',
     'Magento_Customer/js/customer-data',
+    'Magento_Customer/js/model/authentication-popup',
+    'Magento_Customer/js/action/login',
     'dvCampusPersonalDiscountForm'
-], function ($, ko, Component, customerData) {
+], function ($, ko, Component, customerData, authenticationPopup, loginAction) {
     'use strict';
 
     return Component.extend({
         defaults: {
+            allowForGuests: !!customerData.get('personal-discount')().allowForGuests,
             requestAlreadySent: false,
             template: 'DVCampus_PersonalDiscount/button',
             personalDiscount: customerData.get('personal-discount'),
@@ -20,16 +23,24 @@ define([
         /**
          * @returns {*}
          */
-        initObservable: function () {
-            this._super().observe(['requestAlreadySent']);
+        initialize: function () {
+            loginAction.registerLoginCallback(function () {
+                customerData.invalidate(['*']);
+            });
+
+            this._super();
+
+            this.checkRequestAlreadySent(this.personalDiscount());
+            this.openRequestFormAfterSectionReload = false;
 
             return this;
         },
 
-        initLinks: function () {
-            this._super();
-
-            this.checkRequestAlreadySent(this.personalDiscount());
+        /**
+         * @returns {*}
+         */
+        initObservable: function () {
+            this._super().observe(['requestAlreadySent', 'allowForGuests']);
 
             return this;
         },
@@ -38,7 +49,18 @@ define([
          * Generate event to open the form
          */
         openRequestForm: function () {
-            $(document).trigger('dv_campus_personal_discount_form_open');
+            // Customer data may not be initialized yet or is not available on the first page load
+            // But we still need configurations, so must load the section before showing the button
+            if (Object.keys(this.personalDiscount()).length > 0) {
+                if (this.allowForGuests() || !!this.personalDiscount().isLoggedIn) {
+                    $(document).trigger('dv_campus_personal_discount_form_open');
+                } else {
+                    authenticationPopup.showModal();
+                }
+            } else {
+                this.openRequestFormAfterSectionReload = true;
+                customerData.reload(['personal-discount']);
+            }
         },
 
         /**
@@ -50,6 +72,15 @@ define([
             ) {
                 this.requestAlreadySent(true);
             }
+
+            this.allowForGuests(!!personalDiscountData.allowForGuests);
+
+            if (this.openRequestFormAfterSectionReload) {
+                this.openRequestFormAfterSectionReload = false;
+                this.openRequestForm();
+            }
+
+            return personalDiscountData;
         }
     });
 });

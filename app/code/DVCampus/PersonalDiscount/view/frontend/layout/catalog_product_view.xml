@@ -5,6 +5,7 @@
             <block class="Magento\Framework\View\Element\Text\ListText"
                    name="dv-campus-personal-discount-form"
                    group="detailed_info"
+                   ifconfig="dv_campus_personal_discount/general/enabled"
             >
                 <arguments>
                     <argument name="sort_order" xsi:type="string">40</argument>
