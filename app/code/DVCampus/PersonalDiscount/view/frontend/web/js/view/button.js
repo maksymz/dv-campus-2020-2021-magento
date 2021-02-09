@@ -30,6 +30,9 @@ define([
 
             this._super();
 
+            this.checkRequestAlreadySent(this.personalDiscount());
+            this.openRequestFormAfterSectionReload = false;
+
             return this;
         },
 
@@ -43,24 +46,20 @@ define([
         },
 
         /**
-         * @returns {*}
-         */
-        initLinks: function () {
-            this._super();
-
-            this.checkRequestAlreadySent(this.personalDiscount());
-
-            return this;
-        },
-
-        /**
          * Generate event to open the form
          */
         openRequestForm: function () {
-            if (this.allowForGuests() || !!this.personalDiscount().isLoggedIn) {
-                $(document).trigger('dv_campus_personal_discount_form_open');
+            // Customer data may not be initialized yet or is not available on the first page load
+            // But we still need configurations, so must load the section before showing the button
+            if (Object.keys(this.personalDiscount()).length > 0) {
+                if (this.allowForGuests() || !!this.personalDiscount().isLoggedIn) {
+                    $(document).trigger('dv_campus_personal_discount_form_open');
+                } else {
+                    authenticationPopup.showModal();
+                }
             } else {
-                authenticationPopup.showModal();
+                this.openRequestFormAfterSectionReload = true;
+                customerData.reload(['personal-discount']);
             }
         },
 
@@ -74,7 +73,12 @@ define([
                 this.requestAlreadySent(true);
             }
 
-            this.allowForGuests(personalDiscountData.allowForGuests);
+            this.allowForGuests(!!personalDiscountData.allowForGuests);
+
+            if (this.openRequestFormAfterSectionReload) {
+                this.openRequestFormAfterSectionReload = false;
+                this.openRequestForm();
+            }
 
             return personalDiscountData;
         }
