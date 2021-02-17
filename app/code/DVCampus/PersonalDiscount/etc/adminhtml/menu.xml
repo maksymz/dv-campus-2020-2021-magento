@@ -10,12 +10,12 @@
              resource="DVCampus_PersonalDiscount::general"
         />
         <add id="DVCampus_PersonalDiscount::listing"
-             title="Personal Discounts"
+             title="Personal Discount"
              translate="title"
              module="DVCampus_PersonalDiscount"
              sortOrder="100"
              parent="DVCampus_PersonalDiscount::general"
-             action="dv_campus_personal_discount/discounts/index"
+             action="dv_campus_personal_discount/discount/index"
              resource="DVCampus_PersonalDiscount::listing"
         />
     </menu>

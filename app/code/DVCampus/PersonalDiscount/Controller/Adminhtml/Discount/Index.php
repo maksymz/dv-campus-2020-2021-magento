@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DVCampus\PersonalDiscount\Controller\Adminhtml\Discounts;
+namespace DVCampus\PersonalDiscount\Controller\Adminhtml\Discount;
 
 use Magento\Framework\Controller\ResultFactory;
 
