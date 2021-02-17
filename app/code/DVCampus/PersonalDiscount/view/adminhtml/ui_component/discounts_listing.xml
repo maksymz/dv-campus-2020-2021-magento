@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">discounts_listing.discounts_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>discounts_columns</spinner>
+        <deps>
+            <dep>discounts_listing.discounts_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="discounts_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">discount_request_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>DVCampus_PersonalDiscount::listing</aclResource>
+        <dataProvider class="DVCampus\PersonalDiscount\Ui\Component\DiscountsListingDataProvider" name="discounts_listing_data_source">
+            <settings>
+                <requestFieldName>discount_request_id</requestFieldName>
+                <primaryFieldName>discount_request_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filterSearch name="fulltext"/>
+        <filters name="listing_filters"/>
+        <exportButton name="export_button"/>
+        <massaction name="listing_massaction">
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure you want to delete selected requests?</message>
+                        <title translate="true">Delete Personal Discount Requests</title>
+                    </confirm>
+                    <url path="dv_campus_personal_discount/discounts/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete Personal Discount Requests</label>
+                </settings>
+            </action>
+            <action name="status">
+                <settings>
+                    <type>status</type>
+                    <label translate="true">Change status</label>
+                    <actions>
+                        <action name="0">
+                            <type>pending</type>
+                            <label translate="true">Pending</label>
+                            <url path="dv_campus_personal_discount/discounts/massChangeStatus">
+                                <param name="status">1</param>
+                            </url>
+                        </action>
+                        <action name="1">
+                            <type>approve</type>
+                            <label translate="true">Approved</label>
+                            <url path="dv_campus_personal_discount/discounts/massChangeStatus">
+                                <param name="status">2</param>
+                            </url>
+                        </action>
+                        <action name="3">
+                            <type>decline</type>
+                            <label translate="true">Declined</label>
+                            <url path="dv_campus_personal_discount/discounts/massChangeStatus">
+                                <param name="status">3</param>
+                            </url>
+                        </action>
+                    </actions>
+                </settings>
+            </action>
+        </massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="discounts_columns">
+        <settings>
+            <editorConfig>
+                <param name="enabled" xsi:type="boolean">false</param>
+            </editorConfig>
+        </settings>
+        <selectionsColumn name="ids" sortOrder="0">
+            <settings>
+                <indexField>discount_request_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="discount_request_id" sortOrder="10">
+            <settings>
+                <filter>textRange</filter>
+                <sorting>asc</sorting>
+                <label translate="true">Discount Request ID</label>
+            </settings>
+        </column>
+        <column name="product_id" component="Magento_Ui/js/grid/columns/link" sortOrder="20">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="link" xsi:type="string">product_link</item>
+                </item>
+            </argument>
+            <settings>
+                <filter>textRange</filter>
+                <sorting>asc</sorting>
+                <label translate="true">Product ID</label>
+            </settings>
+        </column>
+        <column name="product_name"  sortOrder="30">
+            <settings>
+                <sortable>false</sortable>
+                <label translate="true">Product Name</label>
+            </settings>
+        </column>
+        <!-- @TODO: render Customer ID and customer name in the same way s product ID or name -->
+        <!-- Note that guest customers do not have ID! In this case column must be empty -->
+        <column name="name" sortOrder="40">
+            <settings>
+                <filter>textRange</filter>
+                <sorting>asc</sorting>
+                <label translate="true">Entered Name</label>
+            </settings>
+        </column>
+        <column name="email" sortOrder="50">
+            <settings>
+                <filter>textRange</filter>
+                <sorting>asc</sorting>
+                <label translate="true">Email</label>
+            </settings>
+        </column>
+        <!-- @TODO: show message preview instead of the whole text. This should still be filterable -->
+        <!--
+        <column name="message" sortOrder="60">
+            <settings>
+                <filter>textRange</filter>
+                <sorting>asc</sorting>
+                <label translate="true">Message</label>
+            </settings>
+        </column>
+        -->
+        <column name="website_id"
+                class="Magento\Customer\Ui\Component\Listing\Column\Websites"
+                component="Magento_Ui/js/grid/columns/select"
+                sortOrder="70"
+        >
+            <settings>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <options class="Magento\Store\Model\ResourceModel\Website\Collection"/>
+                <label translate="true">Website</label>
+            </settings>
+        </column>
+        <column name="status"
+                component="Magento_Ui/js/grid/columns/select"
+                sortOrder="80"
+        >
+            <settings>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <options class="DVCampus\PersonalDiscount\Ui\Component\DiscountRequest\Source\Status"/>
+                <label translate="true">Status</label>
+            </settings>
+        </column>
+    </columns>
+</listing>
