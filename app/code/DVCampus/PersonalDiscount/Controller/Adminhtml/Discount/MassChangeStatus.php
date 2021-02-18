@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DVCampus\PersonalDiscount\Controller\Adminhtml\Discount;
 
+use DVCampus\PersonalDiscount\Model\Authorization;
 use DVCampus\PersonalDiscount\Model\DiscountRequest;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Controller\ResultInterface;
@@ -11,7 +12,7 @@ use Magento\Framework\DB\Transaction;
 
 class MassChangeStatus extends AbstractMassAction
 {
-    public const ADMIN_RESOURCE = 'DVCampus_PersonalDiscount::edit';
+    public const ADMIN_RESOURCE = Authorization::ACTION_DISCOUNT_REQUEST_EDIT;
 
     /**
      * Dispatch request

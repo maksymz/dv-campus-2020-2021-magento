@@ -11,6 +11,13 @@
         <deps>
             <dep>discount_listing.discount_listing_data_source</dep>
         </deps>
+        <buttons>
+            <button name="add">
+                <url path="*/*/new"/>
+                <class>primary</class>
+                <label translate="true">Add New Request</label>
+            </button>
+        </buttons>
     </settings>
     <dataSource name="discount_listing_data_source" component="Magento_Ui/js/grid/provider">
         <settings>
@@ -37,7 +44,7 @@
         <filters name="listing_filters"/>
         <exportButton name="export_button"/>
         <massaction name="listing_massaction"
-                    class="DVCampus\PersonalDiscount\Ui\Component\DiscountRequest\MassAction"
+                    class="DVCampus\PersonalDiscount\Ui\Component\DiscountRequest\Listing\MassAction"
                     component="Magento_Ui/js/grid/tree-massactions"
         >
             <action name="delete">
@@ -53,7 +60,7 @@
             </action>
             <action name="status">
                 <settings>
-                    <type>action</type>
+                    <type>edit</type>
                     <label translate="true">Change status</label>
                     <actions>
                         <action name="0">
@@ -168,5 +175,10 @@
                 <label translate="true">Status</label>
             </settings>
         </column>
+        <actionsColumn name="actions" class="DVCampus\PersonalDiscount\Ui\Component\DiscountRequest\Listing\Column\BlockActions">
+            <settings>
+                <indexField>discount_request_id</indexField>
+            </settings>
+        </actionsColumn>
     </columns>
 </listing>
