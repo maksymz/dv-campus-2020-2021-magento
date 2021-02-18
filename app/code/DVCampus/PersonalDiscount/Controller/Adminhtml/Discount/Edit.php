@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace DVCampus\PersonalDiscount\Controller\Adminhtml\Discount;
 
 use DVCampus\PersonalDiscount\Model\Authorization;
-use DVCampus\PersonalDiscount\Model\DiscountRequest;
+use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Controller\ResultInterface;
 
-class Delete extends \Magento\Backend\App\Action implements \Magento\Framework\App\Action\HttpPostActionInterface
+class Edit extends \Magento\Backend\App\Action implements \Magento\Framework\App\Action\HttpGetActionInterface
 {
-    public const ADMIN_RESOURCE = Authorization::ACTION_DISCOUNT_REQUEST_DELETE;
+    public const ADMIN_RESOURCE = Authorization::ACTION_DISCOUNT_REQUEST_EDIT;
 
     private \DVCampus\PersonalDiscount\Model\DiscountRequestFactory $discountRequestFactory;
 
     private \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest $discountRequestResource;
 
     /**
-     * Delete constructor.
+     * Edit constructor.
      * @param \DVCampus\PersonalDiscount\Model\DiscountRequestFactory $discountRequestFactory
      * @param \DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest $discountRequestResource
      * @param \Magento\Backend\App\Action\Context $context
@@ -33,36 +33,30 @@ class Delete extends \Magento\Backend\App\Action implements \Magento\Framework\A
     }
 
     /**
-     * Delete action
-     *
      * @return ResultInterface
      */
     public function execute(): ResultInterface
     {
-        /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
-        $resultRedirect = $this->resultRedirectFactory->create();
+        $discountRequest = $this->discountRequestFactory->create();
 
-        // Check if we know what should be deleted
         if ($discountRequestId = (int) $this->getRequest()->getParam('discount_request_id')) {
-            try {
-                // Init model and delete
-                /** @var DiscountRequest $discountRequest */
-                $discountRequest = $this->discountRequestFactory->create();
-                $discountRequest->setId($discountRequestId);
-                $this->discountRequestResource->delete($discountRequest);
-                // Display success message
-                $this->messageManager->addSuccessMessage(__('Request deleted!'));
-            } catch (\Exception $e) {
-                // Display error message
-                $this->messageManager->addErrorMessage($e->getMessage());
+            $this->discountRequestResource->load($discountRequest, $discountRequestId);
+
+            if (!$discountRequest->getId()) {
+                $this->messageManager->addErrorMessage(__('This request no longer exists.'));
+                /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
+                $resultRedirect = $this->resultRedirectFactory->create();
+
+                return $resultRedirect->setPath('*/*/');
             }
-        } else {
-            // Display error message
-            $this->messageManager->addErrorMessage(__('We can\'t find a request to delete.'));
         }
 
+        /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
+        $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
+        $resultPage->getConfig()->getTitle()->prepend(
+            $discountRequest->getId() ? __('Edit Discount Request') : __('New Discount Request')
+        );
 
-        // Go to grid
-        return $resultRedirect->setPath('*/*/');
+        return $resultPage;
     }
 }

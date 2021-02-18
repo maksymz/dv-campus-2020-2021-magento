@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace DVCampus\PersonalDiscount\Controller\Adminhtml\Discount;
 
-abstract class AbstractMassAction extends \Magento\Backend\App\Action
+abstract class AbstractMassAction extends \Magento\Backend\App\Action implements
+    \Magento\Framework\App\Action\HttpPostActionInterface
 {
     protected \Magento\Ui\Component\MassAction\Filter $filter;
 

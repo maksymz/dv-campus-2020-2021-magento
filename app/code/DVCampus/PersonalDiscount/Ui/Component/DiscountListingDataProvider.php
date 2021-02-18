@@ -6,7 +6,7 @@ namespace DVCampus\PersonalDiscount\Ui\Component;
 
 use Magento\Catalog\Model\Product;
 
-class DiscountsListingDataProvider extends \Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider
+class DiscountListingDataProvider extends \Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider
 {
     private \Magento\Backend\Model\UrlInterface $urlBuilder;
 
@@ -29,9 +29,9 @@ class DiscountsListingDataProvider extends \Magento\Framework\View\Element\UiCom
         \Magento\Backend\Model\UrlInterface $urlBuilder,
         // @TODO: use repository
         \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
-        $name,
-        $primaryFieldName,
-        $requestFieldName,
+        string $name,
+        string $primaryFieldName,
+        string $requestFieldName,
         \Magento\Framework\Api\Search\ReportingInterface $reporting,
         \Magento\Framework\Api\Search\SearchCriteriaBuilder $searchCriteriaBuilder,
         \Magento\Framework\App\RequestInterface $request,

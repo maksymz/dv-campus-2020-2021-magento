@@ -1,8 +1,18 @@
 pending,pending
 approved,approved
 declined,declined
+"Request deleted!","Request deleted!"
+"We can't find a request to delete.","We can't find a request to delete."
+"%1 requests(s) have been updated.","%1 requests(s) have been updated."
+"%1 requests(s) have been deleted.","%1 requests(s) have been deleted."
 "You request for product %1 was accepted!","You request for product %1 was accepted!"
 "Your request can't be sent. Please, contact us if you see this message.","Your request can't be sent. Please, contact us if you see this message."
+Edit,Edit
+Delete,Delete
+"Are you sure you want to delete this request?","Are you sure you want to delete this request?"
+Pending,Pending
+Approved,Approved
+Declined,Declined
 "Request status:","Request status:"
 "No discount request","No discount request"
 "Request Personal Discount","Request Personal Discount"
@@ -22,3 +32,13 @@ Error,Error
 Enabled,Enabled
 "Allow for Guests","Allow for Guests"
 "Allow guests to submit discount requests","Allow guests to submit discount requests"
+"Add New Request","Add New Request"
+"Are you sure you want to delete selected requests?","Are you sure you want to delete selected requests?"
+"Delete Requests","Delete Requests"
+"Change status","Change status"
+"Discount Request ID","Discount Request ID"
+"Product ID","Product ID"
+"Product Name","Product Name"
+"Entered Name","Entered Name"
+Website,Website
+Status,Status
