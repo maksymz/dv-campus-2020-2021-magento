@@ -6,7 +6,31 @@
                 <resource id="Magento_Backend::stores">
                     <resource id="Magento_Backend::stores_settings">
                         <resource id="Magento_Config::config">
-                            <resource id="DVCampus_PersonalDiscount::config" title="Personal Discount" translate="title" sortOrder="100"/>
+                            <resource id="DVCampus_PersonalDiscount::config"
+                                      title="Personal Discount"
+                                      translate="title"
+                                      sortOrder="100"
+                            />
+                        </resource>
+                    </resource>
+                </resource>
+                <resource id="Magento_Backend::marketing">
+                    <resource id="DVCampus_PersonalDiscount::general" title="{DV.Campus}" sortOrder="100">
+                        <resource id="DVCampus_PersonalDiscount::listing"
+                                  title="Personal Discount"
+                                  translate="title"
+                                  sortOrder="100"
+                        >
+                            <resource id="DVCampus_PersonalDiscount::edit"
+                                      title="Edit"
+                                      translate="title"
+                                      sortOrder="10"
+                            />
+                            <resource id="DVCampus_PersonalDiscount::delete"
+                                      title="Delete"
+                                      translate="title"
+                                      sortOrder="20"
+                            />
                         </resource>
                     </resource>
                 </resource>
