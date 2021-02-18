@@ -3,16 +3,16 @@
          xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">discounts_listing.discounts_listing_data_source</item>
+            <item name="provider" xsi:type="string">discount_listing.discount_listing_data_source</item>
         </item>
     </argument>
     <settings>
-        <spinner>discounts_columns</spinner>
+        <spinner>discount_columns</spinner>
         <deps>
-            <dep>discounts_listing.discounts_listing_data_source</dep>
+            <dep>discount_listing.discount_listing_data_source</dep>
         </deps>
     </settings>
-    <dataSource name="discounts_listing_data_source" component="Magento_Ui/js/grid/provider">
+    <dataSource name="discount_listing_data_source" component="Magento_Ui/js/grid/provider">
         <settings>
             <storageConfig>
                 <param name="indexField" xsi:type="string">discount_request_id</param>
@@ -20,7 +20,7 @@
             <updateUrl path="mui/index/render"/>
         </settings>
         <aclResource>DVCampus_PersonalDiscount::listing</aclResource>
-        <dataProvider class="DVCampus\PersonalDiscount\Ui\Component\DiscountsListingDataProvider" name="discounts_listing_data_source">
+        <dataProvider class="DVCampus\PersonalDiscount\Ui\Component\DiscountsListingDataProvider" name="discount_listing_data_source">
             <settings>
                 <requestFieldName>discount_request_id</requestFieldName>
                 <primaryFieldName>discount_request_id</primaryFieldName>
@@ -83,7 +83,7 @@
         </massaction>
         <paging name="listing_paging"/>
     </listingToolbar>
-    <columns name="discounts_columns">
+    <columns name="discount_columns">
         <settings>
             <editorConfig>
                 <param name="enabled" xsi:type="boolean">false</param>

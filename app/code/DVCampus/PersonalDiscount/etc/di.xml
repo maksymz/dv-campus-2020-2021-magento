@@ -5,7 +5,7 @@
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
-                <item name="discounts_listing_data_source" xsi:type="string">DVCampus\PersonalDiscount\Model\ResourceModel\Discounts\Grid\Collection</item>
+                <item name="discount_listing_data_source" xsi:type="string">DVCampus\PersonalDiscount\Model\ResourceModel\Discounts\Grid\Collection</item>
             </argument>
         </arguments>
     </type>
