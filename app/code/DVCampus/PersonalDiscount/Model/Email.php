@@ -14,19 +14,29 @@ class Email
 
     private \Magento\Store\Model\StoreManagerInterface $storeManager;
 
+    private \DVCampus\PersonalDiscount\Model\Config $config;
+
+    private \Psr\Log\LoggerInterface $logger;
+
     /**
      * @param \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder
      * @param \Magento\Framework\Translate\Inline\StateInterface $inlineTranslation
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \DVCampus\PersonalDiscount\Model\Config $config
+     * @param \Psr\Log\LoggerInterface $logger $logger
      */
     public function __construct(
         \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder,
         \Magento\Framework\Translate\Inline\StateInterface $inlineTranslation,
-        \Magento\Store\Model\StoreManagerInterface $storeManager
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \DVCampus\PersonalDiscount\Model\Config $config,
+        \Psr\Log\LoggerInterface $logger
     ) {
         $this->transportBuilder = $transportBuilder;
         $this->inlineTranslation = $inlineTranslation;
         $this->storeManager = $storeManager;
+        $this->config = $config;
+        $this->logger = $logger;
     }
 
     /**
@@ -67,14 +77,15 @@ class Email
                         'store' => $this->storeManager->getStore()->getId()
                     ]
                 )
+                ->setFromByScope($this->config->getSenderEmailIdentity())
                 ->setTemplateVars($templateVariables)
-                ->setFromByScope('support')
                 ->addTo($recipientEmail)
-                ->setReplyTo('maksimz@default-value.com', 'Maksym Zaporozhets')
                 ->getTransport();
 
             $transport->sendMessage();
         } catch (\Exception $e) {
+            $this->logger->critical($e->getMessage());
+
             return false;
         } finally {
             $this->inlineTranslation->resume();

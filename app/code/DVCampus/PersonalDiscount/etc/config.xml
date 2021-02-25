@@ -5,6 +5,7 @@
             <general>
                 <enabled>1</enabled>
                 <allow_for_guests>1</allow_for_guests>
+                <sender_email_identity>sales</sender_email_identity>
             </general>
         </dv_campus_personal_discount>
     </default>
