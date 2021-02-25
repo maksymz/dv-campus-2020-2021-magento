@@ -59,12 +59,43 @@ class Email
     }
 
     /**
+     * @param string $customerEmail
+     * @param string $productName
+     * @param int $storeId
+     * @return bool
+     */
+    public function sendRequestApprovedEmail(string $customerEmail, string $productName, int $storeId): bool
+    {
+        $templateVariables = [
+            'product_name' => $productName
+        ];
+
+        return $this->send($customerEmail, 'dv_campus_discount_request_approved', $templateVariables, $storeId);
+    }
+
+    /**
+     * @param string $customerEmail
+     * @param string $productName
+     * @param int $storeId
+     * @return bool
+     */
+    public function sendRequestDeclinedEmail(string $customerEmail, string $productName, int $storeId): bool
+    {
+        $templateVariables = [
+            'product_name' => $productName
+        ];
+
+        return $this->send($customerEmail, 'dv_campus_discount_request_declined', $templateVariables, $storeId);
+    }
+
+    /**
      * @param string $recipientEmail
      * @param string $templateId
      * @param array $templateVariables
+     * @param int $storeId
      * @return bool
      */
-    public function send(string $recipientEmail, string $templateId, array $templateVariables): bool
+    public function send(string $recipientEmail, string $templateId, array $templateVariables, int $storeId = 0): bool
     {
         $this->inlineTranslation->suspend();
 
@@ -74,10 +105,10 @@ class Email
                 ->setTemplateOptions(
                     [
                         'area' => Area::AREA_FRONTEND,
-                        'store' => $this->storeManager->getStore()->getId()
+                        'store' => $storeId ?: $this->storeManager->getStore()->getId()
                     ]
                 )
-                ->setFromByScope($this->config->getSenderEmailIdentity())
+                ->setFromByScope($this->config->getSenderEmailIdentity(), $storeId ?: null)
                 ->setTemplateVars($templateVariables)
                 ->addTo($recipientEmail)
                 ->getTransport();

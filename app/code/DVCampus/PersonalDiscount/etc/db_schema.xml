@@ -20,6 +20,8 @@
         <column xsi:type="varchar" name="message" nullable="false"
                 comment="Message"
         /><!-- length="4096" -->
+        <!-- This is actually wrong and we ,must save Store ID because product may have different names in different stores! -->
+        <!-- @TODO: migrate data to the `store_id` column, fill it with the default store id -->
         <column xsi:type="smallint" name="website_id" padding="5" unsigned="true" nullable="true"
                 comment="Website ID"
         />
