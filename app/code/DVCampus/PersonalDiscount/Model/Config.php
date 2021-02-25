@@ -6,7 +6,7 @@ namespace DVCampus\PersonalDiscount\Model;
 
 use Magento\Store\Model\ScopeInterface;
 
-class Config extends \Magento\Framework\App\Helper\AbstractHelper
+class Config
 {
     public const XML_PATH_DV_CAMPUS_PERSONAL_DISCOUNT_GENERAL_ENABLED
         = 'dv_campus_personal_discount/general/enabled';
@@ -16,6 +16,17 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
 
     public const XML_PATH_DV_CAMPUS_PERSONAL_DISCOUNT_GENERAL_SALES_EMAIL_IDENTITY
         = 'dv_campus_personal_discount/general/sender_email_identity';
+
+    private \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig;
+
+    /**
+     * Config constructor.
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     */
+    public function __construct(\Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig)
+    {
+        $this->scopeConfig = $scopeConfig;
+    }
 
     /**
      * @return bool

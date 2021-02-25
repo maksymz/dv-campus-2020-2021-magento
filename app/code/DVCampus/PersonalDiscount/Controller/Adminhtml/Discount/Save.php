@@ -81,7 +81,7 @@ class Save extends \Magento\Backend\App\Action implements \Magento\Framework\App
 
         // @TODO: save request if changed
 
-        if ($this->getRequest()->getParam('notify')) {
+        if ($request->getParam('notify')) {
             switch ($discountRequest->getStatus()) {
                 case DiscountRequest::STATUS_APPROVED:
                     $this->email->sendRequestApprovedEmail($customerEmail, $productName, $storeId);

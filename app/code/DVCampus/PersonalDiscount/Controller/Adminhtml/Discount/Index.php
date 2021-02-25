@@ -16,6 +16,9 @@ class Index extends \Magento\Backend\App\Action implements \Magento\Framework\Ap
      */
     public function execute(): ResultInterface
     {
-        return $this->resultFactory->create(ResultFactory::TYPE_PAGE);
+        $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
+        $resultPage->getConfig()->getTitle()->prepend(__('Discount Requests'));
+
+        return $resultPage;
     }
 }

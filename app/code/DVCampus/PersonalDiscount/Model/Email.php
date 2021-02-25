@@ -98,6 +98,7 @@ class Email
     public function send(string $recipientEmail, string $templateId, array $templateVariables, int $storeId = 0): bool
     {
         $this->inlineTranslation->suspend();
+        $emailSent = true;
 
         try {
             $transport = $this->transportBuilder
@@ -116,12 +117,11 @@ class Email
             $transport->sendMessage();
         } catch (\Exception $e) {
             $this->logger->critical($e->getMessage());
-
-            return false;
+            $emailSent = false;
         } finally {
             $this->inlineTranslation->resume();
         }
 
-        return true;
+        return $emailSent;
     }
 }

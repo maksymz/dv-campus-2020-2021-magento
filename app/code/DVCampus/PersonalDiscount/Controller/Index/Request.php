@@ -136,7 +136,6 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
 
             $this->email->sendNewDiscountRequestEmail($name, $email, $product->getName());
         } catch (\InvalidArgumentException $e) {
-            $foo = false;
             // No need to log form key validation errors
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage());
