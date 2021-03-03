@@ -25,6 +25,10 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
 
     private \DVCampus\PersonalDiscount\Model\Config $config;
 
+    private \Magento\Catalog\Model\ProductRepository $productRepository;
+
+    private \DVCampus\PersonalDiscount\Model\Email $email;
+
     private \Psr\Log\LoggerInterface $logger;
 
     /**
@@ -37,6 +41,8 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
      * @param \DVCampus\PersonalDiscount\Model\Config $config
+     * @param \Magento\Catalog\Model\ProductRepository $productRepository
+     * @param \DVCampus\PersonalDiscount\Model\Email $email
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
@@ -48,6 +54,8 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \DVCampus\PersonalDiscount\Model\Config $config,
+        \Magento\Catalog\Model\ProductRepository $productRepository,
+        \DVCampus\PersonalDiscount\Model\Email $email,
         \Psr\Log\LoggerInterface $logger
     ) {
         $this->request = $request;
@@ -58,6 +66,8 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
         $this->customerSession = $customerSession;
         $this->logger = $logger;
         $this->formKeyValidator = $formKeyValidator;
+        $this->productRepository = $productRepository;
+        $this->email = $email;
         $this->config = $config;
     }
 
@@ -100,8 +110,9 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
                 $email = $this->request->getParam('email');
             }
 
-            // @TODO: validate product ID - check that it exists
             $productId = (int) $this->request->getParam('product_id');
+            $product = $this->productRepository->getById($productId);
+
             /** @var DiscountRequest $discountRequest */
             $discountRequest = $this->discountRequestFactory->create();
             $discountRequest->setProductId($productId)
@@ -122,6 +133,8 @@ class Request implements \Magento\Framework\App\Action\HttpPostActionInterface
             }
 
             $formSaved = true;
+
+            $this->email->sendNewDiscountRequestEmail($name, $email, $product->getName());
         } catch (\InvalidArgumentException $e) {
             // No need to log form key validation errors
         } catch (\Exception $e) {
