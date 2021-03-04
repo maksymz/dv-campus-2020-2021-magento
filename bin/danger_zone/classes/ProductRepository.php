@@ -345,14 +345,7 @@ class ProductRepository implements \Magento\Catalog\Api\ProductRepositoryInterfa
      */
     private function cacheProduct($cacheKey, ProductInterface $product)
     {
-        $this->instancesById[$product->getId()][$cacheKey] = $product;
-        $this->saveProductInLocalCache($product, $cacheKey);
-
-        if ($this->cacheLimit && count($this->instances) > $this->cacheLimit) {
-            $offset = round($this->cacheLimit / -2);
-            $this->instancesById = array_slice($this->instancesById, $offset, null, true);
-            $this->instances = array_slice($this->instances, $offset, null, true);
-        }
+        echo "Caching disabled!\n";
     }
 
     /**

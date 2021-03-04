@@ -11,7 +11,7 @@ if (PHP_SAPI !== 'cli') {
 }
 
 try {
-    require __DIR__ . '/../app/bootstrap.php';
+    require __DIR__ . '/../../app/bootstrap.php';
 } catch (\Exception $e) {
     echo 'Autoload error: ' . $e->getMessage();
     exit(1);
@@ -20,7 +20,23 @@ try {
     $handler = new \Magento\Framework\App\ErrorHandler();
     set_error_handler([$handler, 'handler']);
     $application = new Magento\Framework\Console\Cli('Magento CLI');
-    $application->run();
+
+    require_once 'classes/ProductRepository.php';
+
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    /** @var \Magento\Framework\App\State $state */
+    $state = $objectManager->get(\Magento\Framework\App\State::class);
+
+    $state->emulateAreaCode(
+        \Magento\Framework\App\Area::AREA_ADMINHTML,
+        function () use ($objectManager) {
+            /** @var \Magento\Catalog\Model\ProductRepository $productRepository */
+            $productRepository = $objectManager->get(\Magento\Catalog\Model\ProductRepository::class);
+            $productRepository->getList($objectManager->create(\Magento\Framework\Api\SearchCriteriaInterface::class));
+        }
+    );
+
+    exit(Magento\Framework\Console\Cli::RETURN_SUCCESS);
 } catch (\Exception $e) {
     while ($e) {
         echo $e->getMessage();
