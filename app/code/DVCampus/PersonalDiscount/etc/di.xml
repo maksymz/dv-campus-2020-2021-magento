@@ -6,6 +6,7 @@
         <arguments>
             <argument name="commands" xsi:type="array">
                 <item name="dvcampus_personal_discount_generate_requests" xsi:type="object">DVCampus\PersonalDiscount\Console\Command\GenerateFixtures</item>
+                <item name="dvcampus_personal_discount_area_emulation_demo" xsi:type="object">DVCampus\PersonalDiscount\Console\Command\AreaEmulationDemo</item>
             </argument>
         </arguments>
     </type>
