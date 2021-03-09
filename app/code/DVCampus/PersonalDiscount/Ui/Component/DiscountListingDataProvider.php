@@ -68,7 +68,7 @@ class DiscountListingDataProvider extends \Magento\Framework\View\Element\UiComp
             $item['product_link'] = $this->urlBuilder->getUrl('catalog/product/edit', ['id' => $item['product_id']]);
             /** @var Product $product */
             $product = $productCollection->getItemById($item['product_id']);
-            $item['product_name'] = $product->getName();
+            $item['product_name'] = $product ? $product->getName() : 'n/a';
         }
 
         return $data;
