@@ -71,4 +71,8 @@
                     onDelete="SET NULL"
         />
     </table>
+    <table name="quote" resource="default" engine="innodb">
+        <column xsi:type="decimal" name="base_personal_discount" nullable="true" comment="Personal Discount"/>
+        <column xsi:type="decimal" name="personal_discount" nullable="true" comment="Base Personal Discount"/>
+    </table>
 </schema>

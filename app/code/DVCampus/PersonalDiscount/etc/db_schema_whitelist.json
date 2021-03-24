@@ -22,5 +22,9 @@
             "FK_5BBB19523714F56945A93C55FDC5C179": true,
             "DV_CAMPUS_PERSONAL_DISCOUNT_REQUEST_WS_ID_M2_STORE_WS_WS_ID": true
         }
+    },
+    "quote": {
+        "base_personal_discount": true,
+        "personal_discount": true
     }
 }
