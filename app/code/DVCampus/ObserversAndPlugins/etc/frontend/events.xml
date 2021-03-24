@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="controller_action_predispatch_catalog_product_view">
+        <observer name="dvcampus_observers_and_plugins_catalog_product_view"
+                  instance="DVCampus\ObserversAndPlugins\Observer\CatalogProductViewPredispatch"
+        />
+    </event>
+    <event name="controller_action_predispatch_dvcampus_controller_demo_demo_newStyle_page">
+        <observer name="dvcampus_observers_and_plugins_demo_demo_newStyle_page"
+                  instance="DVCampus\ObserversAndPlugins\Observer\ModifyRequestData"
+          />
+    </event>
+    <event name="dvcampus_controller_demo_page">
+        <observer name="dvcampus_observers_and_plugins_dvcampus_controller_demo_page"
+                  instance="DVCampus\ObserversAndPlugins\Observer\ModifyFooParameter"
+        />
+    </event>
+</config>

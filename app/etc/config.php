@@ -306,6 +306,7 @@ return [
         'DVCampus_ControllerDemo' => 1,
         'DVCampus_LayoutDebug' => 1,
         'DVCampus_LessDemo' => 1,
+        'DVCampus_ObserversAndPlugins' => 1,
         'DVCampus_PersonalDiscount' => 1,
         'Dotdigitalgroup_Email' => 1,
         'Dotdigitalgroup_Chat' => 1,
