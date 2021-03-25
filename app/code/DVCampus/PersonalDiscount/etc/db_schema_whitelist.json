@@ -24,7 +24,11 @@
         }
     },
     "quote": {
-        "base_personal_discount": true,
-        "personal_discount": true
+        "personal_discount": true,
+        "base_personal_discount": true
+    },
+    "sales_order": {
+        "personal_discount": true,
+        "base_personal_discount": true
     }
 }
