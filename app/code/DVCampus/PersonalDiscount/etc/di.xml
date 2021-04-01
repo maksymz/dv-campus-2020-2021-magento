@@ -26,4 +26,13 @@
             <argument name="resourceModel" xsi:type="string">DVCampus\PersonalDiscount\Model\ResourceModel\DiscountRequest</argument>
         </arguments>
     </virtualType>
+    <preference for="DVCampus\PersonalDiscount\Api\DiscountRequestRepositoryInterface"
+                type="DVCampus\PersonalDiscount\Model\Api\DiscountRequestRepository"
+    />
+    <preference for="DVCampus\PersonalDiscount\Api\Data\DiscountRequestInterface"
+                type="DVCampus\PersonalDiscount\Model\DiscountRequest"
+    />
+    <preference for="DVCampus\PersonalDiscount\Api\Data\DiscountRequestSearchResultInterface"
+                type="DVCampus\PersonalDiscount\Model\Api\DiscountRequestSearchResult"
+    />
 </config>

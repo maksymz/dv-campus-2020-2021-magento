@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace DVCampus\PersonalDiscount\Api;
 
-use DVCampus\PersonalDiscount\Api\Data\DiscountRequestSearchResultInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
 
 /**
@@ -18,7 +17,7 @@ interface DiscountRequestRepositoryInterface
      * Get full vehicle information by search criteria
      *
      * @param SearchCriteriaInterface $searchCriteria
-     * @return DiscountRequestSearchResultInterface
+     * @return \DVCampus\PersonalDiscount\Api\Data\DiscountRequestSearchResultInterface
      */
-    public function getList(SearchCriteriaInterface $searchCriteria): DiscountRequestSearchResultInterface;
+    public function getList(SearchCriteriaInterface $searchCriteria): \DVCampus\PersonalDiscount\Api\Data\DiscountRequestSearchResultInterface;
 }

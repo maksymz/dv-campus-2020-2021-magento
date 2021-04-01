@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DVCampus\PersonalDiscount\Model;
+namespace DVCampus\PersonalDiscount\Model\Api;
 
 use DVCampus\PersonalDiscount\Api\Data\DiscountRequestSearchResultInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;

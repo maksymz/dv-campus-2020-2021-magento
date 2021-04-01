@@ -10,7 +10,7 @@ use Magento\Framework\Phrase;
 
 class PersonalDiscountInfo extends \Magento\Framework\View\Element\Template
 {
-    private \DVCampus\PersonalDiscount\Model\DiscountRequestRepository $discountRequestRepository;
+    private \DVCampus\PersonalDiscount\Model\Api\DiscountRequestRepository $discountRequestRepository;
 
     private \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder;
 
@@ -20,7 +20,7 @@ class PersonalDiscountInfo extends \Magento\Framework\View\Element\Template
 
     /**
      * PersonalDiscountInfo constructor.
-     * @param \DVCampus\PersonalDiscount\Model\DiscountRequestRepository $discountRequestRepository
+     * @param \DVCampus\PersonalDiscount\Model\Api\DiscountRequestRepository $discountRequestRepository
      * @param \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Magento\Customer\Model\Session $customerSession
@@ -28,7 +28,7 @@ class PersonalDiscountInfo extends \Magento\Framework\View\Element\Template
      * @param array $data
      */
     public function __construct(
-        \DVCampus\PersonalDiscount\Model\DiscountRequestRepository $discountRequestRepository,
+        \DVCampus\PersonalDiscount\Model\Api\DiscountRequestRepository $discountRequestRepository,
         \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\Session $customerSession,
