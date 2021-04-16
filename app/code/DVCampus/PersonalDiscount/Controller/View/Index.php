@@ -12,7 +12,7 @@ class Index extends \Magento\Framework\App\Action\Action implements \Magento\Fra
 {
     private \Magento\Framework\View\Result\PageFactory $pageResponseFactory;
 
-    private \Magento\Backend\Model\View\Result\ForwardFactory $forwardFactory;
+    private \Magento\Framework\Controller\Result\ForwardFactory $forwardFactory;
 
     private \DVCampus\PersonalDiscount\Model\Config $config;
 
@@ -21,14 +21,14 @@ class Index extends \Magento\Framework\App\Action\Action implements \Magento\Fra
     /**
      * Controller constructor.
      * @param \Magento\Framework\View\Result\PageFactory $pageResponseFactory
-     * @param \Magento\Backend\Model\View\Result\ForwardFactory $forwardFactory
+     * @param \Magento\Framework\Controller\Result\ForwardFactory $forwardFactory
      * @param \DVCampus\PersonalDiscount\Model\Config $config
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Framework\App\Action\Context $context
      */
     public function __construct(
         \Magento\Framework\View\Result\PageFactory $pageResponseFactory,
-        \Magento\Backend\Model\View\Result\ForwardFactory $forwardFactory,
+        \Magento\Framework\Controller\Result\ForwardFactory $forwardFactory,
         \DVCampus\PersonalDiscount\Model\Config $config,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\App\Action\Context $context
@@ -44,10 +44,10 @@ class Index extends \Magento\Framework\App\Action\Action implements \Magento\Fra
      * Check customer authentication for some actions
      *
      * @param RequestInterface $request
-     * @return ResponseInterface
+     * @return ResultInterface
      * @throws \Magento\Framework\Exception\NotFoundException
      */
-    public function dispatch(RequestInterface $request): ResponseInterface
+    public function dispatch(RequestInterface $request): ResultInterface
     {
         if ($this->config->enabled() && !$this->customerSession->authenticate()) {
             $this->_actionFlag->set('', 'no-dispatch', true);
